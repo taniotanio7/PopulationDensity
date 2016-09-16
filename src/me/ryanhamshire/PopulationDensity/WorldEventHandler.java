@@ -55,6 +55,7 @@ public class WorldEventHandler implements Listener
 	        }
 	        
 	        //skeletal horses never go away unless slain.  on chunk load, remove any which aren't leashed or carrying a rider
+            //TODO: Horse subtypes will be a separate class in a new Minecraft version (i.e. soooon)
 	        if(entity.getType() == EntityType.HORSE && PopulationDensity.instance.removeWildSkeletalHorses)
 	        {
 	            Horse horse = (Horse)entity;
@@ -98,6 +99,7 @@ public class WorldEventHandler implements Listener
 	    String customName = entity.getCustomName();
 	    if(customName != null && !customName.isEmpty()) return false;
         if((entity instanceof Tameable)) return false;
+        if(entity.isInsideVehicle()) return false;
         
         final int DAY_IN_TICKS = 1728000;
         

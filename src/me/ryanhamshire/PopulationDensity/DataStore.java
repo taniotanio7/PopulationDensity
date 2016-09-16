@@ -532,12 +532,14 @@ public class DataStore implements TabCompleter
 
 		//Sometimes we don't clear high enough thanks to new ultra tall trees in jungle biomes
 		//Instead of attempting to clear up to nearly 110 * 4 blocks more, we'll just see what getHighestBlockYAt returns
-		//If it doesn't return our post's y location, we're setting it to air, and will check again.
+		//If it doesn't return our post's y location, we're setting it and all blocks below to air.
 		int highestBlockY = PopulationDensity.ManagedWorld.getHighestBlockYAt(x, z);
 		while (highestBlockY > y)
 		{
-			PopulationDensity.ManagedWorld.getBlockAt(x, highestBlockY, z).setType(Material.AIR);
-			highestBlockY = PopulationDensity.ManagedWorld.getHighestBlockYAt(x, z);
+			Block block = PopulationDensity.ManagedWorld.getBlockAt(x, highestBlockY, z);
+			if(block.getType() != Material.AIR)
+				block.setType(Material.AIR);
+			highestBlockY--;
 		}
 
 		//build top block

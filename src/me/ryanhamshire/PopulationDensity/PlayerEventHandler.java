@@ -27,7 +27,6 @@ import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -384,7 +383,7 @@ public class PlayerEventHandler implements Listener {
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent event)
 	{
 	    Entity entity = event.getRightClicked();
-        if(entity instanceof Animals || entity instanceof Minecart || entity instanceof Villager)
+        if(entity instanceof Animals || entity instanceof Minecart)
 	    {
 	        entity.setTicksLived(1);
 	    }

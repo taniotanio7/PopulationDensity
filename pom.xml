@@ -6,7 +6,7 @@
 
     <groupId>me.ryanhamshire</groupId>
     <artifactId>PopulationDensity</artifactId>
-    <version>5.8.2</version>
+    <version>5.8.3</version>
     <repositories>
         <repository>
             <id>spigot-repo</id>

@@ -165,6 +165,9 @@ public class MonitorPerformanceTask implements Runnable
                     
                     //skip any entities with nameplates
                     if(entity.getCustomName() != null && entity.getCustomName() != "") continue;
+
+                    //skip entities in vehicles
+                    if(entity.isInsideVehicle()) continue;
                     
                     //only specific types of animals may be removed
                     boolean isAnimal = entity instanceof Animals;

@@ -1329,15 +1329,8 @@ public class PopulationDensity extends JavaPlugin
 	public static Location getRegionCenter(RegionCoordinates region, boolean computeY)
 	{
 		int x, z;
-		if(region.x >= 0)
-			x = region.x * REGION_SIZE + REGION_SIZE / 2;
-		else
-			x = region.x * REGION_SIZE + REGION_SIZE / 2;
-		
-		if(region.z >= 0)
-			z = region.z * REGION_SIZE + REGION_SIZE / 2;
-		else
-			z = region.z * REGION_SIZE + REGION_SIZE / 2;
+		x = region.x * REGION_SIZE + REGION_SIZE / 2;
+		z = region.z * REGION_SIZE + REGION_SIZE / 2;
 		
 		Location center = new Location(ManagedWorld, x, PopulationDensity.instance.minimumRegionPostY, z);
 				

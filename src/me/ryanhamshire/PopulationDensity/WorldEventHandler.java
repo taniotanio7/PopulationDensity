@@ -120,13 +120,6 @@ public class WorldEventHandler implements Listener
             return false;
         }
         
-        //triple allowance if a player nametagged the entity
-        if(customName != null && !customName.isEmpty())
-        {
-            darkMaxTicks *= 3;
-            lightMaxTicks *= 3;
-        }
-        
         //if in the dark, treat as wilderness creature which won't live as long
         byte lightLevel = 15;
         int yLocation = entity.getLocation().getBlockY();

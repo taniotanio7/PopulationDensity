@@ -108,8 +108,9 @@ public class WorldEventHandler implements Listener
         if(entity instanceof Animals && PopulationDensity.instance.abandonedFarmAnimalsDie)
         {
             //can afford to be aggressive with animals because they're easy to re-breed
-            darkMaxTicks = DAY_IN_TICKS;
-            lightMaxTicks = DAY_IN_TICKS * 3;
+            //Redundant?????
+            //darkMaxTicks = DAY_IN_TICKS;
+            //lightMaxTicks = DAY_IN_TICKS * 3;
         }
         else if(entity instanceof Minecart && PopulationDensity.instance.unusedMinecartsVanish)
         {

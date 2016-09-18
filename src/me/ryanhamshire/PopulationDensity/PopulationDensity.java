@@ -144,12 +144,12 @@ public class PopulationDensity extends JavaPlugin
 
     public synchronized static void AddLogEntry(String entry)
 	{
-		log.info("PopDensity: " + entry);
+		log.info(entry);
 	}
 	
 	//initializes well...   everything
 	public void onEnable()
-	{		
+	{
 		instance = this;
 		log = instance.getLogger();
 		

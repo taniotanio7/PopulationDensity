@@ -176,11 +176,15 @@ public class WorldEventHandler implements Listener
         
         //expire any abandoned animals
         removeAbandonedEntities(chunk);
-        
+
+        if (!PopulationDensity.instance.config_keepSpawnRegionLoaded)
+            return;
+
         //nothing more to do in worlds other than the managed world
         if(chunk.getWorld() != PopulationDensity.ManagedWorld) return;
         
         //don't allow the new player spawn point chunk to unload
+        //RoboMWM: provided keepSpawnRegionLoaded is set to true
         
         //find the boundaries of the chunk
         Location lesserCorner = chunk.getBlock(0, 0, 0).getLocation();

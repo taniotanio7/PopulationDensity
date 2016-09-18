@@ -61,7 +61,7 @@ public class PopulationDensity extends JavaPlugin
 	//for logging to the console and log file
 	//Um wat why are we using the Minecraft logger... Oh shoot static is everywhere here :(
 	//private static Logger log = Logger.getLogger("Minecraft");
-	private static Logger log = instance.getLogger();
+	private static Logger log;
 		
 	//developer configuration, not modifiable by users
 	public static final int REGION_SIZE = 400;
@@ -149,7 +149,8 @@ public class PopulationDensity extends JavaPlugin
 	
 	//initializes well...   everything
 	public void onEnable()
-	{ 		
+	{
+		log = instance.getLogger();
 		AddLogEntry("PopulationDensity enabled.");		
 		
 		instance = this;

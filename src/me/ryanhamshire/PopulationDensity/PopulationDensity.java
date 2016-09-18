@@ -149,9 +149,7 @@ public class PopulationDensity extends JavaPlugin
 	
 	//initializes well...   everything
 	public void onEnable()
-	{
-		AddLogEntry("PopulationDensity enabled.");		
-		
+	{		
 		instance = this;
 		log = instance.getLogger();
 		

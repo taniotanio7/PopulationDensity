@@ -20,7 +20,6 @@ package me.ryanhamshire.PopulationDensity;
 
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -177,7 +176,7 @@ public class WorldEventHandler implements Listener
         //expire any abandoned animals
         removeAbandonedEntities(chunk);
 
-        if (!PopulationDensity.instance.config_keepSpawnRegionLoaded)
+        if (!PopulationDensity.instance.config_keepSpawnRegionPostLoaded)
             return;
 
         //nothing more to do in worlds other than the managed world
@@ -191,8 +190,9 @@ public class WorldEventHandler implements Listener
         Location greaterCorner = chunk.getBlock(15, 0, 15).getLocation();
         
         //if the region is the new player region
+        //RoboMWM: Or if server owner wants to keep all region posts loaded...
         RegionCoordinates region = RegionCoordinates.fromLocation(lesserCorner);
-        if(region.equals(PopulationDensity.instance.dataStore.getOpenRegion()))
+        if(region.equals(PopulationDensity.instance.dataStore.getOpenRegion()) || PopulationDensity.instance.config_keepAllRegionPostsLoaded)
         {
             Location regionCenter = PopulationDensity.getRegionCenter(region, false);
         

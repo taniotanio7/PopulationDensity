@@ -126,7 +126,8 @@ public class PopulationDensity extends JavaPlugin
     public boolean config_bootIdlePlayersWhenLagging;
     public boolean config_disableGrindersWhenLagging;
     public int config_maximumHoppersPerChunk;
-	public boolean config_keepSpawnRegionLoaded;
+	public boolean config_keepSpawnRegionPostLoaded;
+	public boolean config_keepAllRegionPostsLoaded;
 	
 	public int minimumRegionPostY;
 	
@@ -215,7 +216,8 @@ public class PopulationDensity extends JavaPlugin
 		this.config_disableGrindersWhenLagging = config.getBoolean("PopulationDensity.Disable Monster Grinders When Lagging", true);
 		this.config_bootIdlePlayersWhenLagging = config.getBoolean("PopulationDensity.Boot Idle Players When Lagging", true);
 		this.config_captureSpigotTimingsWhenLagging = config.getBoolean("PopulationDensity.Capture Spigot Timings When Lagging", false);
-		this.config_keepSpawnRegionLoaded = config.getBoolean("PopulationDensity.KeepSpawnRegionLoaded", true);
+		this.config_keepSpawnRegionPostLoaded = config.getBoolean("PopulationDensity.KeepSpawnRegionPostLoaded", true);
+		this.config_keepAllRegionPostsLoaded = config.getBoolean("PopulationDensity.KeepAllRegionPostsLoaded", false);
 		
 		String topper = config.getString("PopulationDensity.PostDesign.TopBlock", "89:0");  //default glowstone
 		String post = config.getString("PopulationDensity.PostDesign.PostBlocks", "89:0");
@@ -386,7 +388,8 @@ public class PopulationDensity extends JavaPlugin
 		outConfig.set("PopulationDensity.Maximum Hoppers Per Chunk", this.config_maximumHoppersPerChunk);
 		outConfig.set("PopulationDensity.Boot Idle Players When Lagging", this.config_bootIdlePlayersWhenLagging);
 		outConfig.set("PopulationDensity.Capture Spigot Timings When Lagging", this.config_captureSpigotTimingsWhenLagging);
-		outConfig.set("PopulationDensity.KeepSpawnRegionLoaded", this.config_keepSpawnRegionLoaded);
+		outConfig.set("PopulationDensity.KeepSpawnRegionPostLoaded", this.config_keepSpawnRegionPostLoaded);
+		outConfig.set("PopulationDensity.KeepAllRegionPostsLoaded", this.config_keepAllRegionPostsLoaded);
 		outConfig.set("PopulationDensity.MinimumRegionPostY", this.minimumRegionPostY);
 		outConfig.set("PopulationDensity.PreciseWorldSpawn", this.preciseWorldSpawn);
 		outConfig.set("PopulationDensity.MinimumWoodAvailableToPlaceNewPlayers", this.woodMinimum);

@@ -227,7 +227,7 @@ public class PopulationDensity extends JavaPlugin
 		this.nearbyMonsterSpawnLimit = config.getInt("PopulationDensity.Max Monsters Nearby For More To Spawn", nearbyMonsterSpawnLimit);
 		this.abandonedFarmAnimalsDie = config.getBoolean("PopulationDensity.Abandoned Farm Animals Die", true);
 		this.unusedMinecartsVanish = config.getBoolean("PopulationDensity.Unused Minecarts Vanish", true);
-		this.markRemovedEntityLocations = config.getBoolean("PopulationDensity.Mark Abandoned Removed Animal Locations With Shrubs", true);
+		this.markRemovedEntityLocations = config.getBoolean("PopulationDensity.MarkRemovedAnimalLocationsWithShrubs", true);
 		this.removeWildSkeletalHorses = config.getBoolean("PopulationDensity.Remove Wild Skeletal Horses", true);
 		
 		SimpleEntry<Integer, Integer> result;
@@ -382,7 +382,7 @@ public class PopulationDensity extends JavaPlugin
 		outConfig.set("PopulationDensity.ThinOvercrowdedAnimalsAndMonsters", this.thinAnimalAndMonsterCrowds);
 		outConfig.set("PopulationDensity.Abandoned Farm Animals Die", this.abandonedFarmAnimalsDie);
 		outConfig.set("PopulationDensity.Unused Minecarts Vanish", this.unusedMinecartsVanish);
-		outConfig.set("PopulationDensity.Mark Removed Animal Locations With Shrubs", this.markRemovedEntityLocations);
+		outConfig.set("PopulationDensity.MarkRemovedAnimalLocationsWithShrubs", this.markRemovedEntityLocations);
 		outConfig.set("PopulationDensity.Remove Wild Skeletal Horses", this.removeWildSkeletalHorses);
 		outConfig.set("PopulationDensity.Disable Monster Grinders When Lagging", this.config_disableGrindersWhenLagging);
 		outConfig.set("PopulationDensity.Maximum Hoppers Per Chunk", this.config_maximumHoppersPerChunk);

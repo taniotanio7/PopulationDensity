@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -289,25 +290,25 @@ public class EntityEventHandler implements Listener
     				EntityType animalType = null;
     				
     				//decide what to spawn based on the type of monster
-    				if(entity instanceof Creeper)
+    				if(entity.getType() ==  EntityType.CREEPER)
     				{
     				    animalType = EntityType.CHICKEN;
     				}
-    				else if(entity instanceof Zombie)
+    				else if(entity.getType() ==  EntityType.ZOMBIE)
     				{
     				    animalType = EntityType.COW;
     				}
-    				else if(entity instanceof Spider)
+    				else if(entity.getType() ==  EntityType.SPIDER)
     				{
     				    animalType = EntityType.SHEEP;
     				}
-    				else if(entity instanceof Skeleton)
+    				else if(entity.getType() ==  EntityType.SKELETON)
     				{
     				    animalType = EntityType.PIG;
     				}
-    				else if(entity instanceof Enderman)
+    				else if(entity.getType() ==  EntityType.ENDERMAN)
                     {
-                        if(Math.random() > 0.5)
+                        if(new Random().nextBoolean())
                             animalType = EntityType.HORSE;
                         else
                             animalType = EntityType.WOLF;

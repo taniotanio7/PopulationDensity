@@ -1216,7 +1216,7 @@ public class PopulationDensity extends JavaPlugin
 		new TeleportPlayerTask(player, teleportDestination, true, instance).runTaskLater(this, delaySeconds * 20L);
 		
 		//kill bad guys in the area
-		PopulationDensity.removeMonstersAround(teleportDestination);
+		removeMonstersAround(teleportDestination);
 	}
 	
 	//scans the open region for resources and may close the region (and open a new one) if accessible resources are low
@@ -1467,13 +1467,9 @@ public class PopulationDensity extends JavaPlugin
     {
         SendPlayerMessageTask task = new SendPlayerMessageTask(player, color, message);
         if(delayInTicks > 0)
-        {
             PopulationDensity.instance.getServer().getScheduler().runTaskLater(PopulationDensity.instance, task, delayInTicks);
-        }
         else
-        {
             task.run();
-        }
     }
     
     HashSet<UUID> fallImmunityList = new HashSet<UUID>();

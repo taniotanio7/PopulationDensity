@@ -170,7 +170,7 @@ public class EntityEventHandler implements Listener
             if(PopulationDensity.instance.isFallDamageImmune(entity))
             {
                 event.setCancelled(true);
-                instance.removeFallDamageImmunity(entity);
+                PopulationDensity.instance.removeFallDamageImmunity(entity);
                 if(entity.getType() == EntityType.PLAYER)
                 {
                     Player player = (Player)entity;
@@ -211,7 +211,7 @@ public class EntityEventHandler implements Listener
 		
 		if(attacker != null)
 		{
-			instance.resetIdleTimer(attacker);
+			PopulationDensity.instance.resetIdleTimer(attacker);
 		}
 	}
 	
@@ -262,16 +262,16 @@ public class EntityEventHandler implements Listener
 	    //natural spawns may cause animal spawns to keep new player resources available
 	    if(reason == SpawnReason.NATURAL)
 		{
-    		if(instance.ManagedWorld == null || event.getLocation().getWorld() != instance.ManagedWorld) return;
+    		if(PopulationDensity.ManagedWorld == null || event.getLocation().getWorld() != PopulationDensity.ManagedWorld) return;
     		
     		//when an animal naturally spawns, grow grass around it
-    		if(instance.regrowGrass && entity instanceof Animals)
+    		if(entity instanceof Animals && PopulationDensity.instance.regrowGrass)
     		{
     			this.regrow(entity.getLocation().getBlock(), 4);
     		}
     		
     		//when a monster spawns, sometimes spawn animals too
-    		if(instance.respawnAnimals && entity instanceof Monster)
+    		if(entity instanceof Monster && PopulationDensity.instance.respawnAnimals)
     		{
     			//only do this if the spawn is in the newest region
     			if(!PopulationDensity.instance.dataStore.getOpenRegion().equals(RegionCoordinates.fromLocation(entity.getLocation()))) return;				

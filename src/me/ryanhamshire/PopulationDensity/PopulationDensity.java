@@ -1482,16 +1482,18 @@ public class PopulationDensity extends JavaPlugin
             player.setGliding(false);
         }
         entity.setGliding(false);
+        entity.setMetadata("PD_NOFALLDMG", new FixedMetadataValue(this, true));
         fallImmunityList.add(entity.getUniqueId());
     }
     
     boolean isFallDamageImmune(Entity entity)
     {
-        return fallImmunityList.contains(entity.getUniqueId());
+        return entity.hasMetadata("PD_NOFALLDMG") || fallImmunityList.contains(entity.getUniqueId());
     }
     
     void removeFallDamageImmunity(Entity entity)
     {
+        entity.removeMetadata("PD_NOFALLDMG", this);
         fallImmunityList.remove(entity.getUniqueId());
     }
     

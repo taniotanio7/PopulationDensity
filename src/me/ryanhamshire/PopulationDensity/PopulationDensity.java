@@ -762,13 +762,9 @@ public class PopulationDensity extends JavaPlugin
 				}
 				
 				if(result.nearPost && this.launchPlayer(player))
-				{
-				    Bukkit.getScheduler().scheduleSyncDelayedTask(this, new TeleportPlayerTask(player, block.getLocation(), false), 60L);
-				}
+				    new TeleportPlayerTask(player, block.getLocation(), false, instance).runTaskLater(this, 60L);
 				else
-				{
-				    Bukkit.getScheduler().scheduleSyncDelayedTask(this, new TeleportPlayerTask(player, block.getLocation(), false), 0L);
-				}
+				    new TeleportPlayerTask(player, block.getLocation(), false, instance).runTaskLater(this, 0L);
 			}
 			
 			return true;
@@ -1212,13 +1208,12 @@ public class PopulationDensity extends JavaPlugin
 	{
 		//where specifically to send the player?
 		Location teleportDestination = getRegionCenter(region, false);
-		int x = teleportDestination.getBlockX();
-		int z = teleportDestination.getBlockZ();
+		Double x = teleportDestination.getBlockX() + 0.5D;
+		Double z = teleportDestination.getBlockZ() + 0.5D;
 		
 		//drop the player from the sky
 		teleportDestination = new Location(ManagedWorld, x, ManagedWorld.getMaxHeight() + 10, z, player.getLocation().getYaw(), 90);		
-		TeleportPlayerTask task = new TeleportPlayerTask(player, teleportDestination, true);
-		Bukkit.getScheduler().scheduleSyncDelayedTask(this, task, delaySeconds * 20);
+		new TeleportPlayerTask(player, teleportDestination, true, instance).runTaskLater(this, delaySeconds * 20L);
 		
 		//kill bad guys in the area
 		PopulationDensity.removeMonstersAround(teleportDestination);

@@ -23,19 +23,21 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 //created during new player login to teleport that player to his home region after a short delay
 class PlaceNewPlayerTask extends BukkitRunnable
-{	
+{
+	private PopulationDensity instance;
 	private Player player;
 	private RegionCoordinates region;
 	
-	public PlaceNewPlayerTask(Player player, RegionCoordinates region)
+	public PlaceNewPlayerTask(Player player, RegionCoordinates region, PopulationDensity plugin)
 	{
 		this.player = player;
 		this.region = region;
+		this.instance = plugin;
 	}
 	
 	@Override
 	public void run()
 	{
-		PopulationDensity.instance.TeleportPlayer(player, region, 0);
+		instance.TeleportPlayer(player, region, 0);
 	}
 }

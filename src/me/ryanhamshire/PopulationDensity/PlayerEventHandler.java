@@ -236,14 +236,14 @@ public class PlayerEventHandler implements Listener {
     			// spawn in their home region by default.
     			// if configured as such, teleport him there after a tick (since we can't teleport in the event tick)
     			if (instance.newPlayersSpawnInHomeRegion)
-    				new PlaceNewPlayerTask(joiningPlayer, playerData.homeRegion).runTaskLater(instance, 1L);
+    				new PlaceNewPlayerTask(joiningPlayer, playerData.homeRegion, instance).runTaskLater(instance, 1L);
     			
     			// otherwise allow other plugins to control spawning a new player
     			else
     			{
     			    // unless pop density is configured to force a precise world spawn point
     			    if(instance.preciseWorldSpawn)
-    			        new TeleportPlayerTask(joiningPlayer, joiningPlayer.getWorld().getSpawnLocation(), false).runTaskLater(instance, 1L);
+    			        new TeleportPlayerTask(joiningPlayer, joiningPlayer.getWorld().getSpawnLocation(), false, instance).runTaskLater(instance, 1L);
     			    
     			    // always remove monsters around the new player's spawn point to prevent ambushes
     			    PopulationDensity.removeMonstersAround(joiningPlayer.getWorld().getSpawnLocation());

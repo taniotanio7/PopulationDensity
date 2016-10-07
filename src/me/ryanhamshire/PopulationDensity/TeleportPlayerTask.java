@@ -37,16 +37,18 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 //teleports a player.  useful as scheduled task so that a joining player may be teleported (otherwise error)
 class TeleportPlayerTask extends BukkitRunnable
-{	
+{
+    private PopulationDensity instance;
 	private Player player;
 	private Location destination;
 	private boolean makeFallDamageImmune;
 	
-	public TeleportPlayerTask(Player player, Location destination, boolean makeFallDamageImmune)
+	public TeleportPlayerTask(Player player, Location destination, boolean makeFallDamageImmune, PopulationDensity plugin)
 	{
 		this.player = player;
 		this.destination = destination;
 		this.makeFallDamageImmune = makeFallDamageImmune;
+        this.instance = plugin;
 	}
 	
 	@Override
@@ -106,7 +108,7 @@ class TeleportPlayerTask extends BukkitRunnable
 		player.teleport(destination, TeleportCause.PLUGIN);
 		if(this.makeFallDamageImmune)
 		{
-		    PopulationDensity.instance.makeEntityFallDamageImmune(player);
+		    instance.makeEntityFallDamageImmune(player);
 		}
 		
 		//sound effect
@@ -116,7 +118,7 @@ class TeleportPlayerTask extends BukkitRunnable
 	    {
 	        if(!(entity instanceof LivingEntity)) continue;
 	        LivingEntity livingEntity = (LivingEntity)entity;
-		    PopulationDensity.instance.makeEntityFallDamageImmune(livingEntity);
+		    instance.makeEntityFallDamageImmune(livingEntity);
 		    entity.teleport(destination, TeleportCause.PLUGIN);
 	    }
 	}

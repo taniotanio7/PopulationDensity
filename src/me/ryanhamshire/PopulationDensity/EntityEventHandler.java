@@ -57,10 +57,11 @@ import org.bukkit.inventory.ItemStack;
 
 public class EntityEventHandler implements Listener
 {
+	PopulationDensity instance;
     //block types monsters may spawn on when grinders are disabled
     static HashMap<Environment, HashSet<Material>> allowedSpawnBlocks;  
     
-	public EntityEventHandler()
+	public EntityEventHandler(PopulationDensity populationDensity)
 	{
 	    if(allowedSpawnBlocks == null)
 	    {
@@ -82,6 +83,7 @@ public class EntityEventHandler implements Listener
                 Material.ENDER_STONE,
                 Material.OBSIDIAN)));
 	    }
+	    instance = populationDensity;
 	}
     
     //when an entity (includes both dynamite and creepers) explodes...
@@ -242,7 +244,7 @@ public class EntityEventHandler implements Listener
 		}
 	    
 	    //speed limit on monster grinder spawn rates - only affects grinders that rely on naturally-spawning monsters.
-	    if(reason != SpawnReason.SPAWNER_EGG && reason != SpawnReason.SPAWNER && entity instanceof Monster)
+	    if(instance.nearbyMonsterSpawnLimit > -1 && reason != SpawnReason.SPAWNER_EGG && reason != SpawnReason.SPAWNER && entity instanceof Monster)
 	    {
 	        int monstersNearby = 0;
 	        List<Entity> entities = entity.getNearbyEntities(10,  20,  10);

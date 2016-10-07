@@ -450,7 +450,7 @@ public class PopulationDensity extends JavaPlugin
 		pluginManager.registerEvents(blockEventHandler, this);
 		
 		//entity events, to protect region posts from explosions
-		EntityEventHandler entityEventHandler = new EntityEventHandler();
+		EntityEventHandler entityEventHandler = new EntityEventHandler(this);
 		pluginManager.registerEvents(entityEventHandler, this);
 		
 		//world events, to generate region posts when chunks load

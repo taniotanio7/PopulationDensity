@@ -32,9 +32,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 import org.bukkit.event.player.PlayerLoginEvent.Result;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerEventHandler implements Listener {
 	private DataStore dataStore;
+	PopulationDensity instance;
 
 	// queue of players waiting to join the server
 	public ArrayList<LoginQueueEntry> loginQueue = new ArrayList<LoginQueueEntry>();
@@ -42,6 +44,7 @@ public class PlayerEventHandler implements Listener {
 	// typical constructor, yawn
 	public PlayerEventHandler(DataStore dataStore, PopulationDensity plugin) {
 		this.dataStore = dataStore;
+		instance = plugin;
 	}
 
 	// when a player attempts to join the server...
@@ -231,22 +234,16 @@ public class PlayerEventHandler implements Listener {
     
     			// entirely new players who've not visited the server before will
     			// spawn in their home region by default.
-    			// if configured as such, teleport him there in a couple of seconds
-    			if (PopulationDensity.instance.newPlayersSpawnInHomeRegion && joiningPlayer.getLocation().distanceSquared(joiningPlayer.getWorld().getSpawnLocation()) < 625) 
-    			{
-    				PlaceNewPlayerTask task = new PlaceNewPlayerTask(joiningPlayer, playerData.homeRegion);
-    				PopulationDensity.instance.getServer().getScheduler().scheduleSyncDelayedTask(PopulationDensity.instance, task, 1L);
-    			}
+    			// if configured as such, teleport him there after a tick (since we can't teleport in the event tick)
+    			if (instance.newPlayersSpawnInHomeRegion)
+    				new PlaceNewPlayerTask(joiningPlayer, playerData.homeRegion).runTaskLater(instance, 1L);
     			
     			// otherwise allow other plugins to control spawning a new player
     			else
     			{
     			    // unless pop density is configured to force a precise world spawn point
-    			    if(PopulationDensity.instance.preciseWorldSpawn)
-    			    {
-    			        TeleportPlayerTask task = new TeleportPlayerTask(joiningPlayer, joiningPlayer.getWorld().getSpawnLocation(), false);
-    			        PopulationDensity.instance.getServer().getScheduler().scheduleSyncDelayedTask(PopulationDensity.instance, task, 1L);
-    			    }
+    			    if(instance.preciseWorldSpawn)
+    			        new TeleportPlayerTask(joiningPlayer, joiningPlayer.getWorld().getSpawnLocation(), false).runTaskLater(instance, 1L);
     			    
     			    // always remove monsters around the new player's spawn point to prevent ambushes
     			    PopulationDensity.removeMonstersAround(joiningPlayer.getWorld().getSpawnLocation());

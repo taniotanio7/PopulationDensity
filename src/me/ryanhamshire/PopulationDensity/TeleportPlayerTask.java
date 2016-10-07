@@ -33,9 +33,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
 import org.bukkit.entity.Wolf;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.scheduler.BukkitRunnable;
 
 //teleports a player.  useful as scheduled task so that a joining player may be teleported (otherwise error)
-class TeleportPlayerTask implements Runnable 
+class TeleportPlayerTask extends BukkitRunnable
 {	
 	private Player player;
 	private Location destination;

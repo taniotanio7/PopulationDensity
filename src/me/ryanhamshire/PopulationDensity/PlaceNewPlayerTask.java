@@ -19,9 +19,10 @@
  package me.ryanhamshire.PopulationDensity;
 
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 //created during new player login to teleport that player to his home region after a short delay
-class PlaceNewPlayerTask implements Runnable 
+class PlaceNewPlayerTask extends BukkitRunnable
 {	
 	private Player player;
 	private RegionCoordinates region;

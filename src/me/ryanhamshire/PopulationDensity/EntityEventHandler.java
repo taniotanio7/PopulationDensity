@@ -158,36 +158,13 @@ public class EntityEventHandler implements Listener
 			block.setTypeIdAndData(item.getTypeId(), item.getData().getData(), false);
 		}
 	}	
-	
+
+	//RoboMWM - Used solely for resetting the idle timer, may remove(?)
 	@EventHandler(ignoreCancelled = true)
-	public void onEntityDamage (EntityDamageEvent event)
+	public void onEntityDamage (EntityDamageByEntityEvent event)
 	{
-	    Entity entity = event.getEntity();
-	    
-	    //when an entity has fall damage immunity, it lasts for only ONE fall damage check
-        if(event.getCause() == DamageCause.FALL)
-        {
-            if(PopulationDensity.instance.isFallDamageImmune(entity))
-            {
-                event.setCancelled(true);
-                PopulationDensity.instance.removeFallDamageImmunity(entity);
-                if(entity.getType() == EntityType.PLAYER)
-                {
-                    Player player = (Player)entity;
-                    if(!player.hasPermission("populationdensity.teleportanywhere"))
-                    {
-                        player.getWorld().createExplosion(player.getLocation(), 0);
-                    }
-                }
-            }
-        }
-	    
-	    if(!(event instanceof EntityDamageByEntityEvent)) return;
-		
-		EntityDamageByEntityEvent subEvent = (EntityDamageByEntityEvent) event;
-		
 		Player attacker = null;
-		Entity damageSource = subEvent.getDamager();
+		Entity damageSource = event.getDamager();
 		if(damageSource instanceof Player)
 		{
 			attacker = (Player)damageSource;
@@ -351,14 +328,5 @@ public class EntityEventHandler implements Listener
         }
     }
 	
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    public void onEntityToggleFlight(EntityToggleGlideEvent event)
-    {
-        if(event.getEntityType() != EntityType.PLAYER) return;
-	    
-	    if(PopulationDensity.instance.isFallDamageImmune((Player)event.getEntity()))
-        {
-            event.setCancelled(true);
-        }
-    }
+
 }

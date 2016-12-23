@@ -42,14 +42,21 @@ class TeleportPlayerTask extends BukkitRunnable
 	private Player player;
 	private Location destination;
 	private boolean makeFallDamageImmune;
-	
-	public TeleportPlayerTask(Player player, Location destination, boolean makeFallDamageImmune, PopulationDensity plugin)
-	{
-		this.player = player;
-		this.destination = destination;
-		this.makeFallDamageImmune = makeFallDamageImmune;
+	DropShipTeleporter dropShipTeleporter;
+
+	public TeleportPlayerTask(Player player, Location destination, boolean makeFallDamageImmune, PopulationDensity plugin, DropShipTeleporter dropShipTeleporter)
+    {
+        this.player = player;
+        this.destination = destination;
+        this.makeFallDamageImmune = makeFallDamageImmune;
         this.instance = plugin;
-	}
+        this.dropShipTeleporter = dropShipTeleporter;
+    }
+
+    public TeleportPlayerTask(Player player, Location destination, boolean makeFallDamageImmune, PopulationDensity plugin)
+    {
+        this(player, destination, makeFallDamageImmune, plugin, null);
+    }
 	
 	@Override
 	public void run()
@@ -108,7 +115,7 @@ class TeleportPlayerTask extends BukkitRunnable
 		player.teleport(destination, TeleportCause.PLUGIN);
 		if(this.makeFallDamageImmune)
 		{
-		    instance.makeEntityFallDamageImmune(player);
+		    dropShipTeleporter.makeEntityFallDamageImmune(player);
 		}
 		
 		//sound effect
@@ -118,7 +125,8 @@ class TeleportPlayerTask extends BukkitRunnable
 	    {
 	        if(!(entity instanceof LivingEntity)) continue;
 	        LivingEntity livingEntity = (LivingEntity)entity;
-		    instance.makeEntityFallDamageImmune(livingEntity);
+	        if (this.makeFallDamageImmune)
+		        dropShipTeleporter.makeEntityFallDamageImmune(livingEntity);
 		    entity.teleport(destination, TeleportCause.PLUGIN);
 	    }
 	}

@@ -55,7 +55,7 @@ public class WorldEventHandler implements Listener
 	        }
 	        
 	        //skeletal horses never go away unless slain.  on chunk load, remove any which aren't leashed or carrying a rider
-            //TODO: Horse subtypes will be a separate class in a new Minecraft version (i.e. soooon)
+            //TODO: Horse subtypes are in a separate class since 1.11, but I probably will remove this "feature" (I think paper has something to combat this? Can't recall)
 	        if(entity.getType() == EntityType.HORSE && PopulationDensity.instance.removeWildSkeletalHorses)
 	        {
 	            Horse horse = (Horse)entity;

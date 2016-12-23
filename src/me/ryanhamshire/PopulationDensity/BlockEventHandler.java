@@ -19,7 +19,9 @@
 package me.ryanhamshire.PopulationDensity;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -40,7 +42,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 public class BlockEventHandler implements Listener 
 {
-    private static List<Material> alwaysBreakableMaterials = Arrays.asList(
+    private static Set<Material> alwaysBreakableMaterials = new HashSet<Material>(Arrays.asList(
         Material.LONG_GRASS,
         Material.DOUBLE_PLANT,
         Material.LOG,
@@ -50,7 +52,7 @@ public class BlockEventHandler implements Listener
         Material.RED_ROSE,
         Material.YELLOW_FLOWER,
         Material.SNOW_BLOCK
-    );
+    ));
     
 	//when a player breaks a block...
 	@EventHandler(ignoreCancelled = true)

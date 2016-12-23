@@ -22,16 +22,13 @@ import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
+import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -44,11 +41,8 @@ import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
@@ -57,6 +51,8 @@ public class PopulationDensity extends JavaPlugin
 {
 	//for convenience, a reference to the instance of this plugin
 	public static PopulationDensity instance;
+
+	DropShipTeleporter dropShipTeleporterInstance;
 	
 	//for logging to the console and log file
 	//Um wat why are we using the Minecraft logger... Oh shoot static is everywhere here :(
@@ -128,6 +124,7 @@ public class PopulationDensity extends JavaPlugin
     public int config_maximumHoppersPerChunk;
 	public boolean config_keepSpawnRegionPostLoaded;
 	public boolean config_keepAllRegionPostsLoaded;
+	boolean config_launchAndDropPlayers;
 	
 	public int minimumRegionPostY;
 	
@@ -218,6 +215,8 @@ public class PopulationDensity extends JavaPlugin
 		this.config_captureSpigotTimingsWhenLagging = config.getBoolean("PopulationDensity.Capture Spigot Timings When Lagging", false);
 		this.config_keepSpawnRegionPostLoaded = config.getBoolean("PopulationDensity.KeepSpawnRegionPostLoaded", true);
 		this.config_keepAllRegionPostsLoaded = config.getBoolean("PopulationDensity.KeepAllRegionPostsLoaded", false);
+		this.config_launchAndDropPlayers = config.getBoolean("PopulationDensity.LaunchAndDropPlayers", true);
+
 		
 		String topper = config.getString("PopulationDensity.PostDesign.TopBlock", "89:0");  //default glowstone
 		String post = config.getString("PopulationDensity.PostDesign.PostBlocks", "89:0");
@@ -390,6 +389,7 @@ public class PopulationDensity extends JavaPlugin
 		outConfig.set("PopulationDensity.Capture Spigot Timings When Lagging", this.config_captureSpigotTimingsWhenLagging);
 		outConfig.set("PopulationDensity.KeepSpawnRegionPostLoaded", this.config_keepSpawnRegionPostLoaded);
 		outConfig.set("PopulationDensity.KeepAllRegionPostsLoaded", this.config_keepAllRegionPostsLoaded);
+		outConfig.set("PopulationDensity.LaunchAndDropPlayers", this.config_launchAndDropPlayers);
 		outConfig.set("PopulationDensity.MinimumRegionPostY", this.minimumRegionPostY);
 		outConfig.set("PopulationDensity.PreciseWorldSpawn", this.preciseWorldSpawn);
 		outConfig.set("PopulationDensity.MinimumWoodAvailableToPlaceNewPlayers", this.woodMinimum);
@@ -456,6 +456,13 @@ public class PopulationDensity extends JavaPlugin
 		//world events, to generate region posts when chunks load
 		WorldEventHandler worldEventHandler = new WorldEventHandler();
 		pluginManager.registerEvents(worldEventHandler, this);
+
+		//Only load listeners if LaunchAndDrop is enabled in config
+		if (config_launchAndDropPlayers)
+		{
+			this.dropShipTeleporterInstance = new DropShipTeleporter(this);
+			pluginManager.registerEvents(dropShipTeleporterInstance, this);
+		}
 		
 		//make a note of the spawn world.  may be NULL if the configured city world name doesn't match an existing world
 		CityWorld = this.getServer().getWorld(this.cityWorldName);
@@ -599,7 +606,7 @@ public class PopulationDensity extends JavaPlugin
 			    {
 			        if(result.nearPost && this.launchPlayer(player))
 			        {
-			            this.TeleportPlayer(player, targetPlayerData.homeRegion, 2);
+			            this.TeleportPlayer(player, targetPlayerData.homeRegion, 1);
 			        }
 			        else
 			        {
@@ -616,7 +623,7 @@ public class PopulationDensity extends JavaPlugin
 			    {
 			        if(this.launchPlayer(player))
                     {
-                        this.TeleportPlayer(player, targetPlayerData.homeRegion, 2);
+                        this.TeleportPlayer(player, targetPlayerData.homeRegion, 1);
                     }
                     else
                     {
@@ -640,7 +647,7 @@ public class PopulationDensity extends JavaPlugin
     			//otherwise, teleport the user to the specified region					
     			if(this.launchPlayer(player))
                 {
-                    this.TeleportPlayer(player, region, 2);
+                    this.TeleportPlayer(player, region, 1);
                 }
                 else
                 {
@@ -667,7 +674,7 @@ public class PopulationDensity extends JavaPlugin
 			RegionCoordinates openRegion = this.dataStore.getOpenRegion();
 			if(result.nearPost && this.launchPlayer(player))
             {
-                this.TeleportPlayer(player, openRegion, 2);
+                this.TeleportPlayer(player, openRegion, 1);
             }
             else
             {
@@ -762,7 +769,7 @@ public class PopulationDensity extends JavaPlugin
 				}
 				
 				if(result.nearPost && this.launchPlayer(player))
-				    new TeleportPlayerTask(player, block.getLocation(), false, instance).runTaskLater(this, 60L);
+				    new TeleportPlayerTask(player, block.getLocation(), false, instance).runTaskLater(this, 20L);
 				else
 				    new TeleportPlayerTask(player, block.getLocation(), false, instance).runTaskLater(this, 0L);
 			}
@@ -785,7 +792,7 @@ public class PopulationDensity extends JavaPlugin
             {           
                 if(result.nearPost && this.launchPlayer(player))
                 {
-                    this.TeleportPlayer(player, randomRegion, 2);
+                    this.TeleportPlayer(player, randomRegion, 1);
                 }
                 else
                 {
@@ -951,7 +958,7 @@ public class PopulationDensity extends JavaPlugin
 		    {           
 		        if(result.nearPost && this.launchPlayer(player))
 		        {
-		            this.TeleportPlayer(player, randomRegion, 2);
+		            this.TeleportPlayer(player, randomRegion, 1);
 		        }
 		        else
 		        {
@@ -1097,7 +1104,7 @@ public class PopulationDensity extends JavaPlugin
             RegionCoordinates homeRegion = playerData.homeRegion;
             if(result.nearPost && this.launchPlayer(player))
             {
-                this.TeleportPlayer(player, homeRegion, 2);
+                this.TeleportPlayer(player, homeRegion, 1);
             }
             else
             {
@@ -1122,7 +1129,7 @@ public class PopulationDensity extends JavaPlugin
 		if(player.hasPermission("populationdensity.teleportanywhere")) return new CanTeleportResult(true);
 		
 		//disallow spamming commands to hover in the air
-        if(PopulationDensity.instance.isFallDamageImmune(player) && !player.isOnGround()) return new CanTeleportResult(false);
+        if(!player.isOnGround()) return new CanTeleportResult(false);
 		
 		//if teleportation from anywhere is enabled, always allow it
 		if(this.teleportFromAnywhere) return new CanTeleportResult(true);
@@ -1211,9 +1218,10 @@ public class PopulationDensity extends JavaPlugin
 		Double x = teleportDestination.getBlockX() + 0.5D;
 		Double z = teleportDestination.getBlockZ() + 0.5D;
 		
-		//drop the player from the sky
-		teleportDestination = new Location(ManagedWorld, x, ManagedWorld.getMaxHeight() + 10, z, player.getLocation().getYaw(), 90);		
-		new TeleportPlayerTask(player, teleportDestination, true, instance).runTaskLater(this, delaySeconds * 20L);
+		//drop the player from the sky //RoboMWM - only if LaunchAndDropPlayers is enabled
+		if (config_launchAndDropPlayers)
+			teleportDestination = new Location(ManagedWorld, x, ManagedWorld.getMaxHeight() + 10, z, player.getLocation().getYaw(), 90);
+		new TeleportPlayerTask(player, teleportDestination, config_launchAndDropPlayers, instance, dropShipTeleporterInstance).runTaskLater(this, delaySeconds * 20L);
 		
 		//kill bad guys in the area
 		removeMonstersAround(teleportDestination);
@@ -1352,7 +1360,8 @@ public class PopulationDensity extends JavaPlugin
 			
 			return string.toUpperCase();
 		
-		return string.substring(0, 1).toUpperCase() + string.substring(1);    
+		//return string.substring(0, 1).toUpperCase() + string.substring(1);
+		return WordUtils.capitalize(string);
 	}
 
 	public void resetIdleTimer(Player player)
@@ -1471,43 +1480,18 @@ public class PopulationDensity extends JavaPlugin
         else
             task.run();
     }
-    
-    HashSet<UUID> fallImmunityList = new HashSet<UUID>();
-    void makeEntityFallDamageImmune(LivingEntity entity)
-    {
-        if(entity.getType() == EntityType.PLAYER)
-        {
-            Player player = (Player) entity;
-            if(player.getGameMode() == GameMode.CREATIVE || player.getGameMode() == GameMode.SPECTATOR) return;
-            player.setGliding(false);
-        }
-        entity.setGliding(false);
-        entity.setMetadata("PD_NOFALLDMG", new FixedMetadataValue(this, true));
-        fallImmunityList.add(entity.getUniqueId());
-    }
-    
-    boolean isFallDamageImmune(Entity entity)
-    {
-        return entity.hasMetadata("PD_NOFALLDMG") || fallImmunityList.contains(entity.getUniqueId());
-    }
-    
-    void removeFallDamageImmunity(Entity entity)
-    {
-        entity.removeMetadata("PD_NOFALLDMG", this);
-        fallImmunityList.remove(entity.getUniqueId());
-    }
-    
-    boolean launchPlayer(Player player)
-    {
-        if(player.isFlying()) return false;
-        if(!((Entity)player).isOnGround()) return false;
-        this.makeEntityFallDamageImmune(player);
-        Location newViewAngle = player.getLocation();
-        newViewAngle.setPitch(90);
-        player.teleport(newViewAngle);
-        player.setVelocity(new Vector(0, 50, 0));
-        player.playSound(player.getEyeLocation(), Sound.ENTITY_GHAST_SHOOT, .75f, 1f);
-        player.setGliding(false);
-        return true;
-    }
+	boolean launchPlayer(Player player)
+	{
+		if (!config_launchAndDropPlayers) return false;
+		if(player.isFlying()) return false;
+		if(!((Entity)player).isOnGround()) return false;
+		dropShipTeleporterInstance.makeEntityFallDamageImmune(player);
+		Location newViewAngle = player.getLocation();
+		newViewAngle.setPitch(90);
+		player.teleport(newViewAngle);
+		player.setVelocity(new Vector(0, 4, 0));
+		player.playSound(player.getEyeLocation(), Sound.ENTITY_GHAST_SHOOT, .75f, 1f);
+		player.setGliding(false);
+		return true;
+	}
 }

@@ -194,11 +194,12 @@ public class PlayerEventHandler implements Listener {
 					String.valueOf(queuePosition + 1));
 			kickMessage = kickMessage.replace("%queueLength%",
 					String.valueOf(this.loginQueue.size()));
-			event.setKickMessage(""
-					+ (queuePosition + 1)
-					+ " of "
-					+ this.loginQueue.size()
-					+ " in queue.  Reconnect within 3 minutes to keep your place.  :)");
+			event.setKickMessage(kickMessage);
+//			event.setKickMessage(""
+//					+ (queuePosition + 1)
+//					+ " of "
+//					+ this.loginQueue.size()
+//					+ " in queue.  Reconnect within 3 minutes to keep your place.  :)");
 			event.disallow(event.getResult(), event.getKickMessage());
 		}
 	}
@@ -364,16 +365,22 @@ public class PlayerEventHandler implements Listener {
     public synchronized void onPlayerChat(AsyncPlayerChatEvent event)
     {
         String msg = event.getMessage();
-        
-        if(msg.equalsIgnoreCase(PopulationDensity.instance.dataStore.getMessage(Messages.Lag)))
-        {
-            Player player = event.getPlayer();
-            
-            event.getRecipients().clear();
-            event.getRecipients().add(player);
-            
-            PopulationDensity.instance.reportTPS(player);
-        }
+
+		if(msg.equalsIgnoreCase(PopulationDensity.instance.dataStore.getMessage(Messages.Lag)))
+		{
+			final Player player = event.getPlayer();
+
+			event.getRecipients().clear();
+			event.getRecipients().add(player);
+
+			new BukkitRunnable()
+			{
+				public void run()
+				{
+					PopulationDensity.instance.reportTPS(player);
+				}
+			}.runTask(instance);
+		}
     }
 	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -383,15 +390,6 @@ public class PlayerEventHandler implements Listener {
         if(entity instanceof Animals || entity instanceof Minecart)
 	    {
 	        entity.setTicksLived(1);
-	    }
-	}
-	
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-	public void onPlayerToggleFlight(PlayerToggleFlightEvent event)
-	{
-	    if(PopulationDensity.instance.isFallDamageImmune(event.getPlayer()))
-	    {
-	        event.setCancelled(true);
 	    }
 	}
 }

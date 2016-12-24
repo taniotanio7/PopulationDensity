@@ -1214,13 +1214,15 @@ public class PopulationDensity extends JavaPlugin
 	public void TeleportPlayer(Player player, RegionCoordinates region, int delaySeconds)
 	{
 		//where specifically to send the player?
-		Location teleportDestination = getRegionCenter(region, false);
-		Double x = teleportDestination.getBlockX() + 0.5D;
-		Double z = teleportDestination.getBlockZ() + 0.5D;
+		Location teleportDestination = getRegionCenter(region, true);
+		teleportDestination.setX(teleportDestination.getBlockX() + 0.5D);
+		teleportDestination.setY(teleportDestination.getBlockY() + 1D);
+		teleportDestination.setZ(teleportDestination.getBlockZ() + 0.5D);
+
 		
 		//drop the player from the sky //RoboMWM - only if LaunchAndDropPlayers is enabled
 		if (config_launchAndDropPlayers)
-			teleportDestination = new Location(ManagedWorld, x, ManagedWorld.getMaxHeight() + 10, z, player.getLocation().getYaw(), 90);
+			teleportDestination = new Location(ManagedWorld, teleportDestination.getX(), ManagedWorld.getMaxHeight() + 10, teleportDestination.getZ(), player.getLocation().getYaw(), 90);
 		new TeleportPlayerTask(player, teleportDestination, config_launchAndDropPlayers, instance, dropShipTeleporterInstance).runTaskLater(this, delaySeconds * 20L);
 		
 		//kill bad guys in the area

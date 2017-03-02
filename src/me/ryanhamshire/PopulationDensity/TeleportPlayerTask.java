@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.AbstractHorse;
 import org.bukkit.entity.AnimalTamer;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Entity;
@@ -66,7 +67,7 @@ class TeleportPlayerTask extends BukkitRunnable
 		List<Entity> nearbyEntities = player.getNearbyEntities(5, this.player.getWorld().getMaxHeight(), 5);
 		for(Entity entity : nearbyEntities)
 		{
-            if(entity instanceof Tameable && entity.getType() != EntityType.HORSE)
+            if(entity instanceof Tameable && !(entity instanceof AbstractHorse))
             {
                 Tameable tameable = (Tameable) entity;
                 if(tameable.isTamed())
@@ -97,7 +98,7 @@ class TeleportPlayerTask extends BukkitRunnable
                 }
             }
             
-            else if(entity instanceof Animals && entity.getType() != EntityType.HORSE)
+            else if(entity instanceof Animals && !(entity instanceof AbstractHorse))
             {
                 entitiesToTeleport.add(entity);
             }

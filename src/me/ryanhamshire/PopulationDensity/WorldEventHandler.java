@@ -29,6 +29,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Minecart;
+import org.bukkit.entity.SkeletonHorse;
 import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -55,13 +56,12 @@ public class WorldEventHandler implements Listener
 	        }
 	        
 	        //skeletal horses never go away unless slain.  on chunk load, remove any which aren't leashed or carrying a rider
-            //TODO: Horse subtypes are in a separate class since 1.11, but I probably will remove this "feature" (I think paper has something to combat this? Can't recall)
-	        if(entity.getType() == EntityType.HORSE && PopulationDensity.instance.removeWildSkeletalHorses)
+	        if(entity.getType() == EntityType.SKELETON_HORSE && PopulationDensity.instance.removeWildSkeletalHorses)
 	        {
-	            Horse horse = (Horse)entity;
-	            if(horse.getVariant() == Horse.Variant.SKELETON_HORSE && !horse.isLeashed() && horse.getPassenger() == null && horse.getCustomName() == null)
+	            SkeletonHorse horse = (SkeletonHorse)entity;
+	            if(!horse.isLeashed() && horse.getPassengers().isEmpty() && horse.getCustomName() == null)
 	            {
-	                ItemStack saddleStack = horse.getInventory().getSaddle();
+	                ItemStack saddleStack = horse.getInventory().getItem(0); //https://www.spigotmc.org/threads/1-11-horse-inventory-not-accessible-from-variants.195168/#post-2039744
 	                if(saddleStack == null || saddleStack.getType() != Material.SADDLE)
 	                {
 	                    horse.setHealth(0);

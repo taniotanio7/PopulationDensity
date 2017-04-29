@@ -1,0 +1,162 @@
+PopulationDensity:
+  NewPlayersSpawnInHomeRegion: true
+  RespawnInHomeRegion: true
+  CityWorldName: ''
+  AllowTeleportation: true
+  TeleportFromAnywhere: false
+  MaxDistanceFromSpawnToUseHomeRegion: 25
+  ManagedWorldName: world
+  DensityRatio: 1.0
+  MaxIdleMinutes: 0
+  LoginQueueEnabled: true
+  ReservedSlotsForAdministrators: 1
+  LoginQueueMessage: Jesteś %queuePosition% z %queueLength% w kolejce.  Połącz się ponownie za 3 minuty, żeby nadal w niej pozostać.  :)
+  HoursBetweenScans: 6
+  BuildRegionPosts: true
+  NewestRegionRequiresPermission: false
+  GrassRegrows: true
+  AnimalsRespawn: true
+  TreesRegrow: true
+  Max Monsters Nearby For More To Spawn: 2
+  ThinOvercrowdedAnimalsAndMonsters: true
+  Abandoned Farm Animals Die: true
+  Unused Minecarts Vanish: true
+  MarkRemovedAnimalLocationsWithShrubs: true
+  Remove Wild Skeletal Horses: false
+  Disable Monster Grinders When Lagging: true
+  Maximum Hoppers Per Chunk: 10
+  Boot Idle Players When Lagging: true
+  Capture Spigot Timings When Lagging: true
+  KeepSpawnRegionPostLoaded: true
+  KeepAllRegionPostsLoaded: false
+  LaunchAndDropPlayers: true
+  LaunchAndDropNewPlayers: true
+  MinimumRegionPostY: 62
+  PreciseWorldSpawn: false
+  MinimumWoodAvailableToPlaceNewPlayers: 200
+  MinimumResourceScoreToPlaceNewPlayers: 200
+  PostProtectionDistance: 2
+  Maximum Region Name Length: 10
+  PostDesign:
+    TopBlock: '89:0'
+    PostBlocks: '89:0'
+    PlatformOuterRing: '98:0'
+    PlatformInnerRing: '98:0'
+  Region Name List:
+  - redstone
+  - rosa
+  - creeper
+  - miecz
+  - sebix
+  - fjord
+  - widok
+  - oddech
+  - fala
+  - stream
+  - drewno
+  - przygoda
+  - cragstone
+  - kopaczka
+  - siekiera
+  - górnik
+  - kowadło
+  - zamglenie
+  - wschód
+  - zachód
+  - miedź
+  - węgiel
+  - łopata
+  - minecart
+  - railway
+  - kop
+  - przepaść
+  - bazalt
+  - agat
+  - łódź
+  - trawa
+  - poryw
+  - rubin
+  - emerald
+  - stone
+  - złoże
+  - głaz
+  - horyzont
+  - mgła
+  - chmura
+  - canopy
+  - żwir
+  - pochodnia
+  - obsidian
+  - wierzchołek
+  - burza
+  - złoto
+  - canopy
+  - liść
+  - szczyt
+  - polana
+  - ślad
+  - nasiono
+  - diament
+  - zbroja
+  - piasek
+  - krzesiwo
+  - pole
+  - stal
+  - hełm
+  - wąwóz
+  - ognisko
+  - gruz
+  - żelazo
+  - dłuto
+  - księżyc
+  - krzew
+  - zombie
+  - trzon
+  - rdzeń
+  - dolina
+  - dynia
+  - latarnia
+  - copper
+  - moonBeam
+  - soil
+  - pył
+  - cebulandia
+  - buraczowo
+  - zdrój
+  - strzała
+  - łuk
+  - mól
+  - książka
+  - zborze
+  - diament
+  - piórko
+  - paproć
+  - pająk
+  - sieć
+  - budowa
+  CustomSigns:
+    Main:
+    - Witaj w regionie
+    - Możesz się tu tpać
+    - 'Inny region:'
+    - /randomregion
+    North:
+    - <--
+    - Wschód
+    - 'Dzialki:'
+    - /ksiazka dzialki
+    South:
+    - <--
+    - Południe
+    - 'Poradnik:'
+    - /ksiazka poradnik
+    East:
+    - <--
+    - Wschód
+    - Regiony?!
+    - /pomoc regiony
+    West:
+    - <--
+    - Wschód
+    - 'Wszystkie komendy:'
+    - /pomoc

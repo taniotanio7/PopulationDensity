@@ -845,15 +845,15 @@ public class DataStore implements TabCompleter
         HashMap<String, CustomizableMessage> defaults = new HashMap<String, CustomizableMessage>();
         
         //initialize defaults
-        this.addDefault(defaults, Messages.NoManagedWorld, "The PopulationDensity plugin has not been properly configured.  Please update your config.yml to specify a world to manage.", null);
+        this.addDefault(defaults, Messages.NoManagedWorld, "Plugin PopulationDensity nie został pomyślnie skonfigurowany.  Uaktualnij plik config.yml żeby określić świat do zarządzania.", null);
         this.addDefault(defaults, Messages.NoBreakPost, "Nie możesz niszczyć bloków w pobliżu spawnu regionu", null);
-        this.addDefault(defaults, Messages.NoBreakSpawn, "Nie możesz niszczyć bloków w pobliżu spawnu innego gracza..", null);
+        this.addDefault(defaults, Messages.NoBreakSpawn, "Nie możesz niszczyć bloków w pobliżu spawnu innego gracza.", null);
         this.addDefault(defaults, Messages.NoBuildPost, "Nie możesz kłaść bloków w pobliżu spawnu regionu.", null);
         this.addDefault(defaults, Messages.NoBuildSpawn, "Nie możesz kłaść bloków w pobliżu spawnu innego gracza.", null);
         this.addDefault(defaults, Messages.HelpMessage1, "Pomoc oraz komendy dla regionów: {0} ", "0: Help URL");
         this.addDefault(defaults, Messages.BuildingAwayFromHome, "Budujesz poza swoim domyślnym regionem.  Jeśli chciałbyś żeby to był twój domyślny region, użyj /przeprowadzka.", null);
         this.addDefault(defaults, Messages.NoTeleportThisWorld, "Nie możesz teleportować się z tego świata.", null);
-        this.addDefault(defaults, Messages.OnlyHomeCityHere, "W tym miejscu możesz używać tylko komend /HomeRegion oraz /CityRegion.", null);
+        this.addDefault(defaults, Messages.OnlyHomeCityHere, "W tym miejscu możesz używać tylko komend /dom oraz /spawn.", null);
         this.addDefault(defaults, Messages.NoTeleportHere, "Wybacz, nie możesz się z tąd teleportować. Udaj się na spawn regionu!", null);
         this.addDefault(defaults, Messages.NotCloseToPost, "Nie jesteś dosyć blisko spawnu regionu, żeby móc się teleportować.", null);
         this.addDefault(defaults, Messages.InvitationNeeded, "{0} żyje w dziczy. Żeby się do niego dostać najpierw musi Cię zaprosić (/zapros <twoj-nick>).", "0: target player");
@@ -869,25 +869,25 @@ public class DataStore implements TabCompleter
         this.addDefault(defaults, Messages.RegionNamesOnlyLettersAndNumbers, "Nazwy regionów nie mogą zawierać symboli lub znaków interpunkcyjnych.", null);
         this.addDefault(defaults, Messages.RegionNameConflict, "Już istnieje region o takiej nazwie.", null);
         this.addDefault(defaults, Messages.NoMoreRegions, "Wybacz ale obecnie jesteś w jedynym dostępnym regionie. Później dostępne staną się kolejne regiony.", null);
-        this.addDefault(defaults, Messages.InviteAlreadySent, "{0} może teraz użyć komendy /odwiedz {1} żeby teleportować się na spawn\n twojego regionu.", "0: invitee's name, 1: inviter's name");
-        this.addDefault(defaults, Messages.InviteConfirmation, "{0} może teraz użyć komendy /odwiedz {1} żeby teleportować się na spawn\n twojego regionu.", "0: invitee's name, 1: inviter's name");
+        this.addDefault(defaults, Messages.InviteAlreadySent, "{0} może teraz użyć komendy /odwiedz {1} żeby teleportować się na spawn twojego regionu.", "0: invitee's name, 1: inviter's name");
+        this.addDefault(defaults, Messages.InviteConfirmation, "{0} może teraz użyć komendy /odwiedz {1} żeby teleportować się na spawn twojego regionu.", "0: invitee's name, 1: inviter's name");
         this.addDefault(defaults, Messages.InviteNotification, "{0} zaprosił cię, żebyś go odwiedził!", "0: inviter's name");
         this.addDefault(defaults, Messages.InviteInstruction, "Użyj komendy /odwiedz {0}, żeby się tam teleportować.", "0: inviter's name");
-        this.addDefault(defaults, Messages.PlayerNotFound, "Nie ma gracza o nicku \"{0}\" teraz na serwerze.", "0: specified name");
+        this.addDefault(defaults, Messages.PlayerNotFound, "Nie ma gracza o nicku {0} teraz na serwerze.", "0: specified name");
         this.addDefault(defaults, Messages.SetHomeConfirmation, "Ustawiono dom na spawn najbliżeszego regionu!", null);
         this.addDefault(defaults, Messages.SetHomeInstruction1, "Użyj /dom z dowolnego spawnu regionu żeby teleportować się do swojego domu.", null);
         this.addDefault(defaults, Messages.SetHomeInstruction2, "Użyj /zaproś <nick>, żeby zaprosić graczy do spawnu twojego regionu.", null);
-        this.addDefault(defaults, Messages.AddRegionConfirmation, "Otwarto nowy region oraz rozpoczęto skanowanie jego zasobów.\nZobacz konsolę lub logi serwera po więcej informacji.", null);
-        this.addDefault(defaults, Messages.ScanStartConfirmation, "Rozpoczęto skanowanie zasobów.\n Zobacz konsolę lub logi serwera po więcej informacji.", null);
+        this.addDefault(defaults, Messages.AddRegionConfirmation, "Otwarto nowy region oraz rozpoczęto skanowanie jego zasobów. Zobacz konsolę lub logi serwera po więcej informacji.", null);
+        this.addDefault(defaults, Messages.ScanStartConfirmation, "Rozpoczęto skanowanie zasobów. Zobacz konsolę lub logi serwera po więcej informacji.", null);
         this.addDefault(defaults, Messages.LoginPriorityCheck, "Priorytet logowania dla gracza {0} wynosi: {1}.", "0: player name, 1: current priority");
         this.addDefault(defaults, Messages.LoginPriorityUpdate, "Ustawiono pryiorytet logowania gracza {0} na: {1}.", "0: target player, 1: new priority");
         this.addDefault(defaults, Messages.ThinningConfirmation, "Thinning running.  Check logs for detailed results.", null);
         this.addDefault(defaults, Messages.PerformanceScore, "Obecny wynik wydajności serwera wynosi {0}%.", "0: performance score");
         this.addDefault(defaults, Messages.PerformanceScore_Lag, "  Serwer aktywnie pracuje teraz nad zmniejszeniem lagowania - proszę czekać, aż proces dobiegnie końca.", null);
-        this.addDefault(defaults, Messages.PerformanceScore_NoLag, "Serwer działa teraz z normalną prędkością.\n Jeśli doświadczasz lagów sprawdź swoje ustawienia graficzne lub połączenie internetowe.  ", null);
+        this.addDefault(defaults, Messages.PerformanceScore_NoLag, "Serwer działa teraz z normalną prędkością. Jeśli doświadczasz lagów sprawdź swoje ustawienia graficzne lub połączenie internetowe.  ", null);
         this.addDefault(defaults, Messages.PlayerMoved, "Gracz przeniesiony.", null);
         this.addDefault(defaults, Messages.Lag, "lag", null);
-        this.addDefault(defaults, Messages.RegionAlreadyNamed, "Ten region już posiada nazwę.\n Żeby zmienić nazwę użyj komendy /RenameRegion.", null);
+        this.addDefault(defaults, Messages.RegionAlreadyNamed, "Ten region już posiada nazwę. Żeby zmienić nazwę użyj komendy /RenameRegion.", null);
         this.addDefault(defaults, Messages.HopperLimitReached, "Żeby zapobiec laggom serwera, lejki (hoppery) są ograniczone do {0} na chunk.", "0: maximum hoppers per chunk");
         
         //load the config file

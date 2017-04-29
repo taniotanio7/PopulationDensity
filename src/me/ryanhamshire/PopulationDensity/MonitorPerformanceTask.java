@@ -257,7 +257,7 @@ public class MonitorPerformanceTask implements Runnable
             }
         }
         
-        PopulationDensity.AddLogEntry("Removed " + totalRemoved + " of " + totalEntities + " entities.");
+        PopulationDensity.AddLogEntry("Usunięto " + totalRemoved + " z " + totalEntities + " bytów.");
         
         if(PopulationDensity.minutesLagging > 5 && PopulationDensity.minutesLagging % 6 == 0)
         {

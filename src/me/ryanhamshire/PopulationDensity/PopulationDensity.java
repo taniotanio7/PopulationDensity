@@ -196,7 +196,7 @@ public class PopulationDensity extends JavaPlugin
 		this.enableLoginQueue = config.getBoolean("PopulationDensity.LoginQueueEnabled", true);
 		this.reservedSlotsForAdmins = config.getInt("PopulationDensity.ReservedSlotsForAdministrators", 1);
 		if(this.reservedSlotsForAdmins < 0) this.reservedSlotsForAdmins = 0;
-		this.queueMessage = config.getString("PopulationDensity.LoginQueueMessage", "%queuePosition% of %queueLength% in queue.  Reconnect within 3 minutes to keep your place.  :)");
+		this.queueMessage = config.getString("PopulationDensity.LoginQueueMessage", "%queuePosition% z %queueLength% w kolejce.  Połącz się ponownie za 3 minuty, aby zachować miejsce.  :)");
 		this.hoursBetweenScans = config.getInt("PopulationDensity.HoursBetweenScans", 6);
 		this.buildRegionPosts = config.getBoolean("PopulationDensity.BuildRegionPosts", true);
 		this.newestRegionRequiresPermission = config.getBoolean("PopulationDensity.NewestRegionRequiresPermission", false);
@@ -352,7 +352,7 @@ public class PopulationDensity extends JavaPlugin
 		    String error = getRegionNameError(regionName, true);
 		    if(error != null)
 		    {
-		        AddLogEntry("Unable to use region name + '" + regionName + "':" + error);
+		        AddLogEntry("Nie można było użyć nazwy regionu + '" + regionName + "':" + error);
 		    }
 		    else
 		    {
@@ -419,19 +419,19 @@ public class PopulationDensity extends JavaPlugin
 		}
 		catch(IOException exception)
 		{
-			AddLogEntry("Unable to write to the configuration file at \"" + DataStore.configFilePath + "\"");
+			AddLogEntry("Nie można było zapisać pliku konfiguracyjnego o \"" + DataStore.configFilePath + "\"");
 		}
 		
 		//get a reference to the managed world
 		if(this.managedWorldName == null || this.managedWorldName.isEmpty())
 		{
-			PopulationDensity.AddLogEntry("Please specify a world to manage in config.yml.");
+			PopulationDensity.AddLogEntry("Proszę określić świat do zarządzania w pliku konfiguracyjnym (config.yml).");
 			return;
 		}
 		ManagedWorld = this.getServer().getWorld(this.managedWorldName);
 		if(ManagedWorld == null)
 		{
-			PopulationDensity.AddLogEntry("Could not find a world named \"" + this.managedWorldName + "\".  Please update your config.yml.");
+			PopulationDensity.AddLogEntry("Nie można było znaleść świata o nazwie \"" + this.managedWorldName + "\".  Proszę uaktualnić plik config.yml.");
 			return;
 		}
 		
@@ -505,7 +505,7 @@ public class PopulationDensity extends JavaPlugin
 	    if(name.length() > this.maxRegionNameLength)
         {
             if(console)
-                return "Name too long.";
+                return "Nazwa zbyt długa.";
             else
                 return this.dataStore.getMessage(Messages.RegionNameLength, String.valueOf(maxRegionNameLength));
         }
@@ -516,7 +516,7 @@ public class PopulationDensity extends JavaPlugin
             if(!Character.isLetter(c) && !Character.isDigit(c) && c != ' ')
             {
                 if(console)
-                    return "Name includes symbols or puncutation.";
+                    return "Nazwa zawiera symbole lub znaki interpunkcyjne.";
                 else
                     return this.dataStore.getMessage(Messages.RegionNamesOnlyLettersAndNumbers);
             }                   
@@ -1129,7 +1129,7 @@ public class PopulationDensity extends JavaPlugin
 
     public void onDisable()
 	{
-		AddLogEntry("PopulationDensity disabled.");
+		AddLogEntry("PopulationDensity zostało wyłączone.");
 	}
 	
 	//examines configuration, player permissions, and player location to determine whether or not to allow a teleport
@@ -1250,7 +1250,7 @@ public class PopulationDensity extends JavaPlugin
 	@SuppressWarnings("deprecation")
     public void scanRegion(RegionCoordinates region, boolean openNewRegions)
 	{						
-		AddLogEntry("Examining available resources in region \"" + region.toString() + "\"...");						
+		AddLogEntry("Ustalam dostępne zasoby w regionie \"" + region.toString() + "\"...");
 		
 		Location regionCenter = getRegionCenter(region, false);
 		int min_x = regionCenter.getBlockX() - REGION_SIZE / 2;

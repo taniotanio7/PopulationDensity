@@ -206,7 +206,7 @@ public class BlockEventHandler implements Listener
         
         if(!this.nearRegionPost(block.getLocation(), RegionCoordinates.fromLocation(block.getLocation()), 1)) return;
         
-        PopulationDensity.sendMessage(player, TextMode.Instr, Messages.HelpMessage1, ChatColor.UNDERLINE + "" + ChatColor.AQUA + "http://bit.ly/mcregions");
+        PopulationDensity.sendMessage(player, TextMode.Instr, Messages.HelpMessage1, ChatColor.UNDERLINE + "" + ChatColor.AQUA + "http://bit.ly/mcregions (w jęz. angielskim)");
     }
     
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)

@@ -105,12 +105,12 @@ public class DataStore implements TabCompleter
 		//if no regions were loaded, create the first one
 		if(nameToCoordsMap.keySet().size() == 0)
 		{
-			PopulationDensity.AddLogEntry("Please be patient while I search for a good new player starting point!");
-			PopulationDensity.AddLogEntry("This initial scan could take a while, especially for worlds where players have already been building.");
+			PopulationDensity.AddLogEntry("Proszę o cierpliwość! Właśnie będę szukał nowych regionów dla graczy!");
+			PopulationDensity.AddLogEntry("Proces skanowania może chwilę potrwać, zwłaszcza jeśli na tym świecie gracze już coś budowali.");
 			this.addRegion();			
 		}
 		
-		PopulationDensity.AddLogEntry("Open region: \"" + this.getRegionName(this.getOpenRegion()) + "\" at " + this.getOpenRegion().toString() + ".");		
+		PopulationDensity.AddLogEntry("Otwarty region: \"" + this.getRegionName(this.getOpenRegion()) + "\" na " + this.getOpenRegion().toString() + ".");
 	}
 	
 	//used in the spiraling code below (see findNextRegion())
@@ -223,7 +223,7 @@ public class DataStore implements TabCompleter
 		//if any problem, log it
 		catch(Exception e)
 		{
-			PopulationDensity.AddLogEntry("PopulationDensity: Unexpected exception saving data for player \"" + player.getName() + "\": " + e.getMessage());
+			PopulationDensity.AddLogEntry("PopulationDensity: Nieoczekiwany wyjątek podczas zapisywania informacji o graczu \"" + player.getName() + "\": " + e.getMessage());
 		}		
 		
 		try
@@ -327,7 +327,7 @@ public class DataStore implements TabCompleter
 		//if there's any problem with the file's content, log an error message and skip it		
 		catch(Exception e)
 		{
-			 PopulationDensity.AddLogEntry("Unable to load data for player \"" + source + "\": " + e.getMessage());			 
+			 PopulationDensity.AddLogEntry("Niepomyślne ładowanie danych gracza: \"" + source + "\": " + e.getMessage());
 		}
 		
 		try
@@ -403,7 +403,7 @@ public class DataStore implements TabCompleter
         //in case of any problem, log the details
         catch(Exception e)
         {
-            PopulationDensity.AddLogEntry("Unexpected Exception: " + e.getMessage());
+            PopulationDensity.AddLogEntry("Niespodziewany wyjątek: " + e.getMessage());
         }
         
         try
@@ -571,19 +571,19 @@ public class DataStore implements TabCompleter
 		
 		//build a sign on top with region name (or wilderness if no name)
 		String regionName = this.getRegionName(region);
-		if(regionName == null) regionName = "Wilderness";
+		if(regionName == null) regionName = "Dzicz";
 		regionName = PopulationDensity.capitalize(regionName);
 		Block block = PopulationDensity.ManagedWorld.getBlockAt(x, y + 4, z);
 		block.setType(Material.SIGN_POST);
 		
 		org.bukkit.block.Sign sign = (org.bukkit.block.Sign)block.getState();
-		sign.setLine(1, PopulationDensity.capitalize(regionName));
-		sign.setLine(2, "Region");
+		sign.setLine(1, "Region");
+		sign.setLine(2, PopulationDensity.capitalize(regionName));
 		sign.update();
 		
 		//add a sign for the region to the south
 		regionName = this.getRegionName(new RegionCoordinates(region.x + 1, region.z));
-		if(regionName == null) regionName = "Wilderness";
+		if(regionName == null) regionName = "Dzicz";
 		regionName = PopulationDensity.capitalize(regionName);
 		
 		block = PopulationDensity.ManagedWorld.getBlockAt(x, y + 2, z - 1);
@@ -596,8 +596,8 @@ public class DataStore implements TabCompleter
 		sign = (org.bukkit.block.Sign)block.getState();
 		
 		sign.setLine(0, "<--");
-		sign.setLine(1, regionName);
-	    sign.setLine(2, "Region");
+		sign.setLine(1, "Region:");
+		sign.setLine(2, regionName);
 		sign.setLine(3, "<--");
 		
 		sign.update();
@@ -619,7 +619,7 @@ public class DataStore implements TabCompleter
 		
 		//add a sign for the region to the east
 		regionName = this.getRegionName(new RegionCoordinates(region.x, region.z - 1));
-		if(regionName == null) regionName = "Wilderness";
+		if(regionName == null) regionName = "Dzicz";
 		regionName = PopulationDensity.capitalize(regionName);
 		
 		block = PopulationDensity.ManagedWorld.getBlockAt(x - 1, y + 2, z);
@@ -630,11 +630,11 @@ public class DataStore implements TabCompleter
 		block.setTypeIdAndData(Material.WALL_SIGN.getId(), signData.getData(), false);
 		
 		sign = (org.bukkit.block.Sign)block.getState();
-		
+
 		sign.setLine(0, "<--");
-        sign.setLine(1, regionName);
-        sign.setLine(2, "Region");
-        sign.setLine(3, "<--");
+		sign.setLine(1, "Region:");
+		sign.setLine(2, regionName);
+		sign.setLine(3, "<--");
 		
 		sign.update();
 		
@@ -650,17 +650,17 @@ public class DataStore implements TabCompleter
 			
 			sign = (org.bukkit.block.Sign)block.getState();
 			
-			sign.setLine(0, "Teleport");
-			sign.setLine(1, "From Here!");
-			sign.setLine(2, "Punch For");
-			sign.setLine(3, "Instructions");
+			sign.setLine(0, "Z tąd możesz się");
+			sign.setLine(1, "teleportować");
+			sign.setLine(2, "Walnij mnie po");
+			sign.setLine(3, "więcej informacji.");
 			
 			sign.update();
 		}
 		
 		//add a sign for the region to the south
 		regionName = this.getRegionName(new RegionCoordinates(region.x, region.z + 1));
-		if(regionName == null) regionName = "Wilderness";
+		if(regionName == null) regionName = "Dzicz";
 		regionName = PopulationDensity.capitalize(regionName);
 		
 		block = PopulationDensity.ManagedWorld.getBlockAt(x + 1, y + 2, z);
@@ -671,11 +671,11 @@ public class DataStore implements TabCompleter
 		block.setTypeIdAndData(Material.WALL_SIGN.getId(), signData.getData(), false);
 		
 		sign = (org.bukkit.block.Sign)block.getState();
-		
+
 		sign.setLine(0, "<--");
-        sign.setLine(1, regionName);
-        sign.setLine(2, "Region");
-        sign.setLine(3, "<--");
+		sign.setLine(1, "Region:");
+		sign.setLine(2, regionName);
+		sign.setLine(3, "<--");
 		
 		sign.update();
 		
@@ -689,18 +689,18 @@ public class DataStore implements TabCompleter
 			block.setTypeIdAndData(Material.WALL_SIGN.getId(), signData.getData(), false);
 			
 			sign = (org.bukkit.block.Sign)block.getState();
-			
-			sign.setLine(0, "Teleport");
-            sign.setLine(1, "From Here!");
-            sign.setLine(2, "Punch For");
-            sign.setLine(3, "Instructions");
+
+			sign.setLine(0, "Z tąd możesz się");
+			sign.setLine(1, "teleportować");
+			sign.setLine(2, "Walnij mnie po");
+			sign.setLine(3, "więcej informacji.");
 			
 			sign.update();
 		}
 		
 		//add a sign for the region to the north
 		regionName = this.getRegionName(new RegionCoordinates(region.x - 1, region.z));
-		if(regionName == null) regionName = "Wilderness";
+		if(regionName == null) regionName = "Dzicz";
 		regionName = PopulationDensity.capitalize(regionName);
 		
 		block = PopulationDensity.ManagedWorld.getBlockAt(x, y + 2, z + 1);
@@ -711,11 +711,11 @@ public class DataStore implements TabCompleter
 		block.setTypeIdAndData(Material.WALL_SIGN.getId(), signData.getData(), false);
 		
 		sign = (org.bukkit.block.Sign)block.getState();
-		
+
 		sign.setLine(0, "<--");
-        sign.setLine(1, regionName);
-        sign.setLine(2, "Region");
-        sign.setLine(3, "<--");
+		sign.setLine(1, "Region:");
+		sign.setLine(2, regionName);
+		sign.setLine(3, "<--");
 		
 		sign.update();
 		
@@ -846,49 +846,49 @@ public class DataStore implements TabCompleter
         
         //initialize defaults
         this.addDefault(defaults, Messages.NoManagedWorld, "The PopulationDensity plugin has not been properly configured.  Please update your config.yml to specify a world to manage.", null);
-        this.addDefault(defaults, Messages.NoBreakPost, "You can't break blocks this close to the region post.", null);
-        this.addDefault(defaults, Messages.NoBreakSpawn, "You can't break blocks this close to a player spawn point.", null);
-        this.addDefault(defaults, Messages.NoBuildPost, "You can't place blocks this close to the region post.", null);
-        this.addDefault(defaults, Messages.NoBuildSpawn, "You can't place blocks this close to a player spawn point.", null);
-        this.addDefault(defaults, Messages.HelpMessage1, "Region post help and commands: {0} ", "0: Help URL");
-        this.addDefault(defaults, Messages.BuildingAwayFromHome, "You're building outside of your home region.  If you'd like to make this region your new home to help you return here later, use /MoveIn.", null);
-        this.addDefault(defaults, Messages.NoTeleportThisWorld, "You can't teleport from this world.", null);
-        this.addDefault(defaults, Messages.OnlyHomeCityHere, "You're limited to /HomeRegion and /CityRegion here.", null);
-        this.addDefault(defaults, Messages.NoTeleportHere, "Sorry, you can't teleport from here.", null);
-        this.addDefault(defaults, Messages.NotCloseToPost, "You're not close enough to a region post to teleport.", null);
-        this.addDefault(defaults, Messages.InvitationNeeded, "{0} lives in the wilderness.  He or she will have to /invite you.", "0: target player");
-        this.addDefault(defaults, Messages.VisitConfirmation, "Teleported to {0}'s home region.", "0: target player");
-        this.addDefault(defaults, Messages.DestinationNotFound, "There's no region or online player named \"{0}\".  Use /ListRegions to list possible destinations.", "0: specified destination");
-        this.addDefault(defaults, Messages.NeedNewestRegionPermission, "You don't have permission to use that command.", null);
-        this.addDefault(defaults, Messages.NewestRegionConfirmation, "Teleported to the current new player area.", null);
-        this.addDefault(defaults, Messages.NotInRegion, "You're not in a region!", null);
-        this.addDefault(defaults, Messages.UnnamedRegion, "You're in the wilderness!  This region doesn't have a name.", null);
-        this.addDefault(defaults, Messages.WhichRegion, "You're in the {0} region.", null);
-        this.addDefault(defaults, Messages.RegionNamesNoSpaces, "Region names may not include spaces.", null);
-        this.addDefault(defaults, Messages.RegionNameLength, "Region names must be at most {0} letters long.", "0: maximum length specified in config.yml");
-        this.addDefault(defaults, Messages.RegionNamesOnlyLettersAndNumbers, "Region names may not include symbols or punctuation.", null);
-        this.addDefault(defaults, Messages.RegionNameConflict, "There's already a region by that name.", null);
-        this.addDefault(defaults, Messages.NoMoreRegions, "Sorry, you're in the only region.  Over time, more regions will open.", null);
-        this.addDefault(defaults, Messages.InviteAlreadySent, "{0} may now use /visit {1} to teleport to your home post.", "0: invitee's name, 1: inviter's name");
-        this.addDefault(defaults, Messages.InviteConfirmation, "{0} may now use /visit {1} to teleport to your home post.", "0: invitee's name, 1: inviter's name");
-        this.addDefault(defaults, Messages.InviteNotification, "{0} has invited you to visit!", "0: inviter's name");		
-        this.addDefault(defaults, Messages.InviteInstruction, "Use /visit {0} to teleport there.", "0: inviter's name");
-        this.addDefault(defaults, Messages.PlayerNotFound, "There's no player named \"{0}\" online right now.", "0: specified name");
-        this.addDefault(defaults, Messages.SetHomeConfirmation, "Home set to the nearest region post!", null);
-        this.addDefault(defaults, Messages.SetHomeInstruction1, "Use /Home from any region post to teleport to your home post.", null);
-        this.addDefault(defaults, Messages.SetHomeInstruction2, "Use /Invite to invite other players to teleport to your home post.", null);
-        this.addDefault(defaults, Messages.AddRegionConfirmation, "Opened a new region and started a resource scan.  See console or server logs for details.", null);
-        this.addDefault(defaults, Messages.ScanStartConfirmation, "Started scan.  Check console or server logs for results.", null);
-        this.addDefault(defaults, Messages.LoginPriorityCheck, "{0}'s login priority: {1}.", "0: player name, 1: current priority");
-        this.addDefault(defaults, Messages.LoginPriorityUpdate, "Set {0}'s priority to {1}.", "0: target player, 1: new priority");
+        this.addDefault(defaults, Messages.NoBreakPost, "Nie możesz niszczyć bloków w pobliżu spawnu regionu", null);
+        this.addDefault(defaults, Messages.NoBreakSpawn, "Nie możesz niszczyć bloków w pobliżu spawnu innego gracza..", null);
+        this.addDefault(defaults, Messages.NoBuildPost, "Nie możesz kłaść bloków w pobliżu spawnu regionu.", null);
+        this.addDefault(defaults, Messages.NoBuildSpawn, "Nie możesz kłaść bloków w pobliżu spawnu innego gracza.", null);
+        this.addDefault(defaults, Messages.HelpMessage1, "Pomoc oraz komendy dla regionów: {0} ", "0: Help URL");
+        this.addDefault(defaults, Messages.BuildingAwayFromHome, "Budujesz poza swoim domyślnym regionem.  Jeśli chciałbyś żeby to był twój domyślny region, użyj /przeprowadzka.", null);
+        this.addDefault(defaults, Messages.NoTeleportThisWorld, "Nie możesz teleportować się z tego świata.", null);
+        this.addDefault(defaults, Messages.OnlyHomeCityHere, "W tym miejscu możesz używać tylko komend /HomeRegion oraz /CityRegion.", null);
+        this.addDefault(defaults, Messages.NoTeleportHere, "Wybacz, nie możesz się z tąd teleportować. Udaj się na spawn regionu!", null);
+        this.addDefault(defaults, Messages.NotCloseToPost, "Nie jesteś dosyć blisko spawnu regionu, żeby móc się teleportować.", null);
+        this.addDefault(defaults, Messages.InvitationNeeded, "{0} żyje w dziczy. Żeby się do niego dostać najpierw musi Cię zaprosić (/zapros <twoj-nick>).", "0: target player");
+        this.addDefault(defaults, Messages.VisitConfirmation, "Teleportowano do regionu gracza {0}", "0: target player");
+        this.addDefault(defaults, Messages.DestinationNotFound, "Niema regionu, ani gracza o nazwie {0}.  Użyj /ListRegions żeby zobaczyć dostępne regiony..", "0: specified destination");
+        this.addDefault(defaults, Messages.NeedNewestRegionPermission, "Nie masz uprawnień do tej komendy.", null);
+        this.addDefault(defaults, Messages.NewestRegionConfirmation, "Teleportowano do najświeższego regionu.", null);
+        this.addDefault(defaults, Messages.NotInRegion, "Nie znajdujesz się w żadnym regionie!", null);
+        this.addDefault(defaults, Messages.UnnamedRegion, "Jesteś w dziczy!  Ten region nie ma jeszcze nazwy.", null);
+        this.addDefault(defaults, Messages.WhichRegion, "Jesteś w regionie {0}", null);
+        this.addDefault(defaults, Messages.RegionNamesNoSpaces, "Nazwa regionu nie może zawierać spacji.", null);
+        this.addDefault(defaults, Messages.RegionNameLength, "Nazwa regionu musi posiadać przynajmniej {0} znaków.", "0: maximum length specified in config.yml");
+        this.addDefault(defaults, Messages.RegionNamesOnlyLettersAndNumbers, "Nazwy regionów nie mogą zawierać symboli lub znaków interpunkcyjnych.", null);
+        this.addDefault(defaults, Messages.RegionNameConflict, "Już istnieje region o takiej nazwie.", null);
+        this.addDefault(defaults, Messages.NoMoreRegions, "Wybacz ale obecnie jesteś w jedynym dostępnym regionie. Później dostępne staną się kolejne regiony.", null);
+        this.addDefault(defaults, Messages.InviteAlreadySent, "{0} może teraz użyć komendy /odwiedz {1} żeby teleportować się na spawn\n twojego regionu.", "0: invitee's name, 1: inviter's name");
+        this.addDefault(defaults, Messages.InviteConfirmation, "{0} może teraz użyć komendy /odwiedz {1} żeby teleportować się na spawn\n twojego regionu.", "0: invitee's name, 1: inviter's name");
+        this.addDefault(defaults, Messages.InviteNotification, "{0} zaprosił cię, żebyś go odwiedził!", "0: inviter's name");
+        this.addDefault(defaults, Messages.InviteInstruction, "Użyj komendy /odwiedz {0}, żeby się tam teleportować.", "0: inviter's name");
+        this.addDefault(defaults, Messages.PlayerNotFound, "Nie ma gracza o nicku \"{0}\" teraz na serwerze.", "0: specified name");
+        this.addDefault(defaults, Messages.SetHomeConfirmation, "Ustawiono dom na spawn najbliżeszego regionu!", null);
+        this.addDefault(defaults, Messages.SetHomeInstruction1, "Użyj /dom z dowolnego spawnu regionu żeby teleportować się do swojego domu.", null);
+        this.addDefault(defaults, Messages.SetHomeInstruction2, "Użyj /zaproś <nick>, żeby zaprosić graczy do spawnu twojego regionu.", null);
+        this.addDefault(defaults, Messages.AddRegionConfirmation, "Otwarto nowy region oraz rozpoczęto skanowanie jego zasobów.\nZobacz konsolę lub logi serwera po więcej informacji.", null);
+        this.addDefault(defaults, Messages.ScanStartConfirmation, "Rozpoczęto skanowanie zasobów.\n Zobacz konsolę lub logi serwera po więcej informacji.", null);
+        this.addDefault(defaults, Messages.LoginPriorityCheck, "Priorytet logowania dla gracza {0} wynosi: {1}.", "0: player name, 1: current priority");
+        this.addDefault(defaults, Messages.LoginPriorityUpdate, "Ustawiono pryiorytet logowania gracza {0} na: {1}.", "0: target player, 1: new priority");
         this.addDefault(defaults, Messages.ThinningConfirmation, "Thinning running.  Check logs for detailed results.", null);
-        this.addDefault(defaults, Messages.PerformanceScore, "Current server performance score is {0}%.", "0: performance score");
-        this.addDefault(defaults, Messages.PerformanceScore_Lag, "  The server is actively working to reduce lag - please be patient while automatic lag reduction takes effect.", null);
-        this.addDefault(defaults, Messages.PerformanceScore_NoLag, "The server is running at normal speed.  If you're experiencing lag, check your graphics settings and internet connection.  ", null);
-        this.addDefault(defaults, Messages.PlayerMoved, "Player moved.", null);
+        this.addDefault(defaults, Messages.PerformanceScore, "Obecny wynik wydajności serwera wynosi {0}%.", "0: performance score");
+        this.addDefault(defaults, Messages.PerformanceScore_Lag, "  Serwer aktywnie pracuje teraz nad zmniejszeniem lagowania - proszę czekać, aż proces dobiegnie końca.", null);
+        this.addDefault(defaults, Messages.PerformanceScore_NoLag, "Serwer działa teraz z normalną prędkością.\n Jeśli doświadczasz lagów sprawdź swoje ustawienia graficzne lub połączenie internetowe.  ", null);
+        this.addDefault(defaults, Messages.PlayerMoved, "Gracz przeniesiony.", null);
         this.addDefault(defaults, Messages.Lag, "lag", null);
-        this.addDefault(defaults, Messages.RegionAlreadyNamed, "This region already has a name.  To REname, use /RenameRegion.", null);
-        this.addDefault(defaults, Messages.HopperLimitReached, "To prevent server lag, hoppers are limited to {0} per chunk.", "0: maximum hoppers per chunk");
+        this.addDefault(defaults, Messages.RegionAlreadyNamed, "Ten region już posiada nazwę.\n Żeby zmienić nazwę użyj komendy /RenameRegion.", null);
+        this.addDefault(defaults, Messages.HopperLimitReached, "Żeby zapobiec laggom serwera, lejki (hoppery) są ograniczone do {0} na chunk.", "0: maximum hoppers per chunk");
         
         //load the config file
         FileConfiguration config = YamlConfiguration.loadConfiguration(new File(messagesFilePath));
@@ -903,8 +903,8 @@ public class DataStore implements TabCompleter
             //if default is missing, log an error and use some fake data for now so that the plugin can run
             if(messageData == null)
             {
-                PopulationDensity.AddLogEntry("Missing message for " + messageID.name() + ".  Please contact the developer.");
-                messageData = new CustomizableMessage(messageID, "Missing message!  ID: " + messageID.name() + ".  Please contact a server admin.", null);
+                PopulationDensity.AddLogEntry("Brakująca wiadomość dla " + messageID.name() + ".  Skontaktuj się z developerem.");
+                messageData = new CustomizableMessage(messageID, "Brakująca wiadomość!  ID: " + messageID.name() + ".  Skontaktuj się z administratorem serwera.", null);
             }
             
             //read the message from the file, use default if necessary
@@ -925,7 +925,7 @@ public class DataStore implements TabCompleter
         }
         catch(IOException exception)
         {
-            PopulationDensity.AddLogEntry("Unable to write to the configuration file at \"" + DataStore.messagesFilePath + "\"");
+            PopulationDensity.AddLogEntry("Nie mogłem zapisać danych do pliku konfiguracyjnego \"" + DataStore.messagesFilePath + "\"");
         }
         
         defaults.clear();

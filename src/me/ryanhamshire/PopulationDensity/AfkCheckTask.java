@@ -52,8 +52,8 @@ public class AfkCheckTask implements Runnable
 		   (PopulationDensity.bootingIdlePlayersForLag ||
 		    PopulationDensity.instance.getServer().getMaxPlayers() - PopulationDensity.instance.reservedSlotsForAdmins - 3 <= playersOnline))
 		{
-			PopulationDensity.AddLogEntry("Kicked " + player.getName() + " for idling.");
-			player.kickPlayer("Kicked for idling, to make room for active players.");
+			PopulationDensity.AddLogEntry("Wyrzucono " + player.getName() + " za bycie nieaktywnym.");
+			player.kickPlayer("Wyrzucono za bycie nieaktywnym, żeby zrobić miejsce dla nowych graczy");
 			return;
 		}
 		

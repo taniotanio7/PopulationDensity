@@ -4,80 +4,80 @@ softdepend: [Multiverse-Core, My Worlds, Transporter, MystCraft]
 version: ${project.version}
 commands:
    visit:
-      description: Teleports the player to a specified region.
-      usage: /visit <online player name> OR /visit <region name>
-      aliases: [visitregion, vr, visitpost]
+      description: Teleportuje gracza do określonego regionu.
+      usage: /odziedz <nick gracza>  lub /odiwedz <nazwa regionu>
+      aliases: [visitregion, vr, visitpost, odwiedz, wizyta]
    homeregion:
-      description: Returns the player to his/her home region.
-      usage: /HomeRegion
-      aliases: [gohome, homepost]
+      description: Teleportuje gracza do jego domowego regionu.
+      usage: /dom
+      aliases: [gohome, homepost, idzdom, domowyregion]
    sethomeregion:
-      description: Updates a user's home region to his current region.
-      usage: /SetHomeRegion
-      aliases: [movein, sethomeregion, sethomepost]
+      description: Ustawia domowy region gracza na miejsce, w którym się znajduje w danym momencie.
+      usage: /przeprowadzka
+      aliases: [movein, sethomeregion, sethomepost, przeprowadzka, ustawdom, ustawdomowyregion]
    nameregion:
-      description: Names a wilderness region.
+      description: Przypisuje nazwę dla dziczy.
       usage: /nameregion <name>
       permission: populationdensity.nameregion
    renameregion:
-      description: Renames a region.
+      description: Zmienia nazwę regionu.
       usage: /renameregion <name>
       permission: populationdensity.renameregion
    whichregion:
-      description: Tells the player which region he's in.
-      usage: /WhichRegion
+      description: Mówi graczu, w jakim regionie się obecnie znajduje.
+      usage: /tenregion
+      aliases: [jakiregion, tenregion]
    newestregion:
-      description: Teleports the player to the newest region.
-      usage: /newestregion
+      description: Teleportuje gracza do najnowszego regionu.
+      usage: /najnowszyregion
+      aliases: [spawnregion, najnowszyregion, newestregion]
    cityregion:
-      description: Teleports the player to the server spawn.
-      usage: /cityregion
-      aliases: [spawn, spawnregion]
+      description: Teleportuje gracza na spawn serwera.
+      usage: /spawn
+      aliases: [spawn, spawnregion, cityregion]
    addregion:
-      description: Closes the current open region and opens a new one.
+      description: Zamyka obecnie otwarty region i otwiera nowy.
       usage: /addregion
       permission: populationdensity.addregion
    randomregion:
-      description: Teleports you to a random region.
-      usage: /randomregion 
+      description: Teleportuje Cię do losowego regionu.
+      usage: /losowyregion
+      aliases: [losregion, losowyregion]
    scanregion:
-      description: Scans the region you're standing in for resources.
+      description: Skanuje region, w którym się znajdujesz w poszukiwaniu zasobów.
       usage: /ScanRegion
       permission: populationdensity.addregion
    addregionpost:
-      description: Generates a region post at the center of the current region.
+      description: Generuje spawn regionu w środku twojego regionu.
       usage: /AddRegionPost
       permission: populationdensity.addregion
    invite:
-      description: Invites a player to visit your home region.
-      usage: /invite <player name>
-      alises: [invitetoregion, regioninvite, inviteregion]
+      description: Zaprasza gracza, by odwiedził twoj region.
+      usage: /zapros <nazwa gracza>
+      alises: [invitetoregion, regioninvite, inviteregion, zapros]
    loginpriority:
-      description: Sets the login priority for a player.
+      description: Ustawia priorytet logowania dla gracza.
       usage: /LoginPriority <player name> <priority, 0 - 100>
       permission: populationdensity.setloginpriority
-   randomregion:
-      description: Teleports the player to a random region.
-      usage: /randomregion
    thinentities:
       description: Forces entity thinning to run immediately.
       usage: /thinentities
       permission: populationdensity.forcethinning
    simlag:
-      description: Simulates lag.  Intended for testing - do not use!
+      description: Symuluje laggowanie serwera.  Tylko do testowania - NIE UŻYWAĆ!
       usage: /simlag <ticksPerSecond>
       permission: populationdensity.simulatelag
    lag:
-      description: Checks for server CPU lag.
+      description: Sprawdza laggowanie CPU serwera.
       usage: /lag
    listregions:
-      description: Lists all available regions.
-      usage: /listregions
-      aliases: [regions, regionlist, regionslist, allregions]
+      description: Wyświetla nazwy wszystkich dostępnych regionów.
+      usage: /listaregionow
+      aliases: [regions, regionlist, regionslist, allregions, listaregionow, listareg, dostepneregiony]
       permission: populationdensity.listregions
    sendregion:
-      description: Sends a player to his home region or to a specificied region.
-      usage: /SendRegion <player> <region> (if no region specified, player goes home)
+      description: Wysyła gracza do jego domowego regionu lub do ustalonego.
+      usage: /SendRegion <gracz> <region> (jeśli nie podano nazwy, wysyła go do domu)
       aliases: [sendtoregion]
       permission: populationdensity.sendregion
 permissions:

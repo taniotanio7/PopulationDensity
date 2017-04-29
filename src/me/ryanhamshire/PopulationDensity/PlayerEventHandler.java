@@ -228,9 +228,9 @@ public class PlayerEventHandler implements Listener {
     			// his home region is the open region
     			RegionCoordinates openRegion = this.dataStore.getOpenRegion();
     			playerData.homeRegion = openRegion;
-    			PopulationDensity.AddLogEntry("Assigned new player "
-    					+ joiningPlayer.getName() + " to region "
-    					+ this.dataStore.getRegionName(openRegion) + " at "
+    			PopulationDensity.AddLogEntry("Przydzielono nowego gracza "
+    					+ joiningPlayer.getName() + " do regionu "
+    					+ this.dataStore.getRegionName(openRegion) + " o "
     					+ openRegion.toString() + ".");
     
     			// entirely new players who've not visited the server before will

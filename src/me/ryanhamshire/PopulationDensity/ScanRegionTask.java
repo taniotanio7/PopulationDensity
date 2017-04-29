@@ -90,7 +90,7 @@ public class ScanRegionTask extends Thread
 		}
 		catch(ArrayIndexOutOfBoundsException e)
 		{
-			logEntries.add("Unexpected Exception: " + e.toString());
+			logEntries.add("Niespodziewany wyjątek: " + e.toString());
 		}
 		
 		//enqueue that start position
@@ -227,17 +227,17 @@ public class ScanRegionTask extends Thread
 		
 		//deliver report
 		logEntries.add("");								
-		logEntries.add("Region Scan Results :");
+		logEntries.add("Wyniki skanowania regionu :");
 		logEntries.add("");				
-		logEntries.add("         Wood :" + woodCount + "  (Minimum: " + PopulationDensity.instance.woodMinimum + ")");
-		logEntries.add("         Coal :" + coalCount);
-		logEntries.add("         Iron :" + ironCount);
-		logEntries.add("         Gold :" + goldCount);
-		logEntries.add("     Redstone :" + redstoneCount);
-		logEntries.add("      Diamond :" + diamondCount);
-		logEntries.add("Player Blocks :" + playerBlocks + "  (Maximum: " + (PopulationDensity.instance.densityRatio * 40000) + ")");
+		logEntries.add("         Drewno :" + woodCount + "  (Minimalnie: " + PopulationDensity.instance.woodMinimum + ")");
+		logEntries.add("         Węgiel :" + coalCount);
+		logEntries.add("         Żelazo :" + ironCount);
+		logEntries.add("         Złoto  :" + goldCount);
+		logEntries.add("     Redstone  :" + redstoneCount);
+		logEntries.add("      Diamenty :" + diamondCount);
+		logEntries.add("Bloki graczy :" + playerBlocks + "  (Maksymalnie: " + (PopulationDensity.instance.densityRatio * 40000) + ")");
 		logEntries.add("");
-		logEntries.add(" Resource Score : " + resourceScore + "  (Minimum: " + PopulationDensity.instance.resourceMinimum + ")");
+		logEntries.add(" Wynik zasobów : " + resourceScore + "  (Minimalny: " + PopulationDensity.instance.resourceMinimum + ")");
 		logEntries.add("");								
 		
 		//if NOT sufficient resources for a good start
@@ -245,18 +245,18 @@ public class ScanRegionTask extends Thread
 		{					
 			if(resourceScore < PopulationDensity.instance.resourceMinimum || woodCount < PopulationDensity.instance.woodMinimum)
 			{
-				logEntries.add("Summary: Insufficient near-surface resources to support new players.");			
+				logEntries.add("Podsumowanie: Brak wystarczających zasobów, aby wesprzeć nowych graczy.");
 			}
 			else if(playerBlocks > 40000 * PopulationDensity.instance.densityRatio)
 			{
-				logEntries.add("Summary: Region seems overcrowded.");			
+				logEntries.add("Podsumowanie: Region wygląda na przeludniony.");
 			}
 		}
 		
 		//otherwise
 		else
 		{
-			logEntries.add("Summary: Looks good!  This region is suitable for new players.");
+			logEntries.add("Podsumowanie: Wygląda świetnie!  Ten region może przyjąć nowych graczy.");
 			openNewRegions = false;
 		}
 		

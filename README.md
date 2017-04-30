@@ -12,3 +12,4 @@ Have fun.
 ## To-Do:
 - Umożliwić edycję *wszystkich* komunikatów w plikach messages.yml (nope, nie znam Javy)
 - Spolszczyć nazwy regionów przy pierwszym uruchomieniu pluginu (na razie tylko w przykładowym pliku config.yml)
+- Nagranie filmu tłumaczącego jak działa plugin (w miejsce tego oryginalnego)

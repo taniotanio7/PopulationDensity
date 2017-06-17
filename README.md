@@ -10,6 +10,6 @@ Mam nadzieję, że się przyda!
 Have fun.
 
 ## To-Do:
-[x] Umożliwić edycję *wszystkich* komunikatów w plikach messages.yml (nope, nie znam Javy :>)
-[x] Spolszczyć nazwy regionów przy pierwszym uruchomieniu pluginu (na razie tylko w przykładowym pliku config.yml: https://github.com/taniotanio7/PopulationDensity-pl/blob/master/config-przyklad.yml)
-[x] Nagranie filmu tłumaczącego jak działa plugin (w miejsce oryginalnego)
+- [] Umożliwić edycję *wszystkich* komunikatów w plikach messages.yml (nope, nie znam Javy :>)
+- [] Spolszczyć nazwy regionów przy pierwszym uruchomieniu pluginu (na razie tylko w przykładowym pliku config.yml: https://github.com/taniotanio7/PopulationDensity-pl/blob/master/config-przyklad.yml)
+- [] Nagranie filmu tłumaczącego jak działa plugin (w miejsce oryginalnego)
